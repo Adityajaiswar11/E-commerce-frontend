@@ -1,15 +1,17 @@
-import Product from '../components/Product'
-import Slide from './Slide'
+import Banner from "../components/Banner";
+import Product from "../components/Products";
+import Slide from "./Slide";
 
 const Home = () => {
   return (
     <>
-          <Slide/>
-          <Product/>
-         
+    <Banner/>
+      <div className="my-10 md:my-0">
+         <Slide/>
+      </div>
+      <Product />
     </>
-   
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

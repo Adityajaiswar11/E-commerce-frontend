@@ -1,78 +1,84 @@
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Context } from "../utils/Constant";
 
+const Special = ({ p }) => {
 
-const Special = () => {
+     const [isadded,setIsAdded] = useState(false)
+     const { cart, setCart } = useContext(Context);
 
-  function goOut () {
-
-  }
-
-
-  
-   const productName = [
-
-          {
-            id:2334,
-            name: "Trending Shirts",
-            rate: 4.5,
-            img:"/images/img-2.jpeg",
-            price: "60$"
-          },
-          {
-            id:233,
-            name: "Black &  Red t-shirt",
-            rate: 3.0,
-            img:"/images/img-3.webp",
-            price: "30$"
-          },
-          {
-            id:23,
-            name: "Plan T-shirt",
-            rate: 4.0,
-            img:"/images/img-4.avif",
-            price: "40$"
-          },
-          {
-            id:23443,
-            name: "Drop-down T-shirt",
-            rate: 4.3,
-            img:"/images/img-5.webp",
-            price: "45$"
-        
-          }
-
-   ]
+  const addtocart = (e,p) => {
+     e.preventDefault();
      
+       toast.success("Item added successfully");
+     
+ 
+     const _id = p.id; //getting a unique id
+ 
+     const addCart = { ...cart }; //{item:{}}
+ 
+     if (!addCart.item) {
+       addCart.item = {};
+     }
+     if (addCart.item[_id]) {
+       addCart.item[_id] += 1;
+     } else {
+       addCart.item[_id] = 1;
+     }
+ 
+     if (!addCart.totalitem) {
+       addCart.totalitem = 0;
+     }
+     addCart.totalitem += 1;
+ 
+     setCart(addCart);
+     setIsAdded(true);
+   };
+  
+
   return (
     <>
-     {
-        productName.map((p)=>{
-              return(
-                // eslint-disable-next-line react/jsx-key
-                <div className="box m-10 bg--500 rounded-lg bg-pink-200 shadow-md" key={p.id}>
-                <div>
-                     <img src={p.img} alt="" className='w-full rounded-md h-56 hover:scale-105 cursor-pointer p-1 duration-300 ease-linear' />
-                </div>
-                 
-                 <div className="pt-1">
-                      <h1 className="pl-5 text-center text-lg p-2 font-bold">{p.name}</h1>
-                      <h1 className="pl-5 text-sm text-red-500">Rating - <span className=" font-bold">{p.rate}</span></h1>
-                 </div>
-            
-                 <div className=" flex justify-around items-center gap-4 pb-2">
-                     <h2>Price - <span className="">{p.price}</span></h2>
-                    
-                     <button className="bg-orange-500 rounded-lg  px-4 py-1 uppercase text-md cursor-pointer
-                      duration-300 ease-linear border-2 border-gray-600 text-sm text-white font-bold" onClick={goOut}>add</button>
-                      
-                 </div>
-             
-            
-            </div>
-              )
-        })
-     }
-    </>
-  )
-}
+      <Link to={`/product/${p.id}`}>
+        <div
+          className="box m-10 bg--500 rounded-lg bg-white shadow-md shadow-black text-[#000]"
+          key={p.id}
+        >
+          <div>
+            <img
+              src={p.img}
+              alt=""
+              className="w-full rounded-md h-56 hover:scale-105 cursor-pointer p-1 duration-300 ease-linear"
+            />
+          </div>
 
-export default Special
+          <div className="pt-1">
+            <h1 className="pl-5 text-center text-lg p-2 font-bold">{p.name}</h1>
+            <h1 className="pl-5 text-sm text-red-500">
+              Rating - <span className=" font-bold">{p.rate}</span>
+            </h1>
+          </div>
+
+          <div className="md:ml-5 my-2 font-bold ml-5 ">
+            <h2>
+              Price - <span className="">${p.price}</span>
+            </h2>
+          </div>
+
+          <div className= {`${isadded?"bg-green-500 py-2 w-full text-center ":"py-2 bg-red-600 w-full text-center"}`}>
+            <button
+              className=" rounded-lg  px-4 py-1 uppercase text-md cursor-pointer
+                      duration-300 ease-linear text-sm text-white font-bold"
+              onClick={(e) => addtocart(e, p)}
+            >
+             {!isadded ? "Add to cart" : "item added to cart"}
+            </button>
+          </div>
+        </div>
+      </Link>
+    </>
+  );
+};
+
+export default Special;
