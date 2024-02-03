@@ -8,8 +8,8 @@ const Login = () => {
         <p className="title">Login</p>
         <form className="form">
           <div className="input-group">
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="Enter your username" />
+            <label htmlFor="username">Email</label>
+            <input type="email"  id="username" placeholder="Enter your  email" />
           </div>
           <div className="input-group">
             <label htmlFor="password">Password</label>
@@ -27,9 +27,9 @@ const Login = () => {
           <div className="line"></div>
         </div>
         <div className="social-icons"></div>
-        <p className="signup">
+        <p className="signup p-1">
           Don't have an account?
-          <Link rel="noopener noreferrer" to="/signup" className="">
+          <Link  to="/signup" className="text-[14px] underline p-1 text-blue-600">
             Sign up
           </Link>
         </p>

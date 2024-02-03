@@ -1,88 +1,102 @@
 import { Link, useNavigate } from "react-router-dom";
-import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
+import { LuLoader2 } from "react-icons/lu";
+import { TypeAnimation } from "react-type-animation";
+
 const Signup = () => {
-  const [show, setShow] = useState(true);
   const navigate = useNavigate();
-
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const apiURl = import.meta.env.VITE_API_URL;
-  
 
-  const submitHandler =(event) =>{
-    event.preventDefault()
-    
-    axios.post(`${apiURl}/signup`,{
-      name,
-      email,
-      password
-    }).then(res=>console.log(res))
-    .catch(err=> console.log(err))
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(false);
+      const { data } = await axios.post(`${apiURl}/signup`, {
+        name,
+        email,
+        password,
+      });
+      setLoading(data.ok);
 
-    
-  }
-
-  const toggle = () => {
-    setShow(false);
-    navigate("/");
+      toast.success("Signed Up Successfully! Please Login Now");
+      // Redirecting the user after sign up
+      navigate("/login", { replace: true });
+    } catch (err) {
+      toast.error(err.response.data, {
+        position: "top-center",
+      });
+    }
   };
-  return (
-    <div className="flex justify-center items-center z-10 h-screen">
-      {show && (
-        <form onSubmit={submitHandler}>
-          <div className="w-80 rounded-2xl bg-slate-900 relative">
-            <div className="flex flex-col gap-2 p-8">
-              <p className="text-center text-3xl text-gray-300 mb-4">
-                Register
-              </p>
-              <input
-                className="bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
-                placeholder="Enter your full name"
-                type="text"
-                value={name}
-                onChange={(e)=>setName(e.target.value)}
-              />
-              <input
-                className="bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
-                placeholder="Enter your email"
-                type="email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-              />
-              <input
-                className="bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
-                placeholder="Enter password"
-                type="password"
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-              />
-              
-              <label className="flex cursor-pointer items-center justify-between p-1 text-slate-400 text-[14px]">
-                already have an acount?
-                <Link
-                  to="/login"
-                  className="text-[15px] text-white opacity-90 underline "
-                >
-                  Login here
-                </Link>
-              </label>
 
-              <button className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95" type="submit">
-                Submit
-              </button>
-            </div>
-            <div className=" absolute right-3 top-4 cursor-pointer rounded-full shadow-sm shadow-white p-1">
-              <RxCross2
-                className="text-white text-xl opacity-85 hover:opacity-100"
-                onClick={toggle}
-              />
-            </div>
+  return (
+    <div className="flex md:flex-row md:justify-evenly items-center z-10  md:mt-10 p-10 justify-center  flex-col mt-14">
+      <div className="">
+        <img
+          src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg"
+          alt=""
+          className="rounded-md"
+        />
+      </div>
+
+      <form onSubmit={submitHandler} className="  p-5 mt-3">
+        <div className="w-80 rounded-2xl relative h-[450px]">
+          <div className="flex flex-col gap-1 ">
+            <TypeAnimation
+              sequence={["Welcome to EasyShop", 1000, "Please Register here.."]}
+              wrapper="span"
+              speed={20}
+              className="text-center text-2xl text-red-600 mb-4 font-bold opacity-90"
+            />
+            <label className=" opacity-80 text-[#9ca3af]">Name</label>
+            <input
+              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
+              placeholder="Enter your full name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <label className=" opacity-80 text-[#9ca3af]">Email</label>
+            <input
+              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
+              placeholder="Enter your email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label className=" opacity-80 text-[#9ca3af] ">Password</label>
+            <input
+              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
+              placeholder="Enter password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <label className="flex cursor-pointer items-center justify-center p-1 text-slate-400 text-[14px]">
+              already have an acount?
+              <Link
+                to="/login"
+                className="text-[14px]opacity-90 underline p-1 text-blue-600 "
+              >
+                Login here
+              </Link>
+            </label>
+
+            <button
+              className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
+              type="submit"
+            >
+              {loading ? <LuLoader2 /> : "Register"}
+            </button>
           </div>
-        </form>
-      )}
+        </div>
+      </form>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
 import Cartpage from "./Cartpage";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [data, setData] = useState([]);
@@ -22,18 +23,33 @@ const Cart = () => {
 
   return (
     <>
-      <div className="mt-[10rem] grid grid-cols-3">
-        {data.length === 0 ? (
-          <h2 className="text-center text-gray-700 font-bold mt-5">
-            Your shopping bag is empty.
-          </h2>
-        ) : (
-          ""
-        )}
-        {data.map((data) => (
-          <Cartpage key={data?.id} data={data} />
-        ))}
-      </div>
+      {data.length === 0 ? (
+        <div className="mt-[7rem] flex md:justify-evenly items-center flex-col md:flex-row justify-center">
+          <img
+            src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png"
+            alt=""
+          />
+          <div className="text-center h-full p-4">
+            <h1 className="md:text-[3rem] text-[1.4rem] opacity-90 text-red-600/80 font-semibold">
+              Your cart is empty !
+            </h1>
+            <p className="text-md opacity-80 text-white/50 pt-2 mb-[2rem]">
+              You have no items in your shopping cart.
+            </p>
+            <Link
+              to="/"
+              className="py-2 px-3 bg-red-500 rounded-md hover:bg-red-600 duration-150"
+            >
+              Continue Shopping
+            </Link>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {data.map((data) => (
+        <Cartpage key={data?.id} data={data} />
+      ))}
     </>
   );
 };
