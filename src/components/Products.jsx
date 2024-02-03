@@ -6,7 +6,6 @@ import Loader from "./Loader";
 import ProductCard from "../pages/ProductCard";
 import { motion } from "framer-motion";
 
-
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -14,19 +13,18 @@ const container = {
     scale: 1,
     transition: {
       delayChildren: 0.5,
-      staggerChildren: 0.3
-    }
-  }
+      staggerChildren: 0.3,
+    },
+  },
 };
 
 const Products = () => {
-
   const item = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
-      opacity: 1
-    }
+      opacity: 1,
+    },
   };
 
   const [datashow, setDatashow] = useState([]);
@@ -54,27 +52,26 @@ const Products = () => {
           Our Products
         </h1>
       </div>
-      
-        {/* <div className="w-full flex justify-center items-center flex-co p-2"> */}
-          <motion.ul className=" md:w-full lg:w-full h-full md:m-5 grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 mx-auto sm:grid-cols-2 relative container"   
-    variants={container}
-    initial="hidden"
-    animate="visible">
-          
-          
-            {datashow.map((data)=>{
-                return(
-                  <>
-                  <motion.li key={data?.id} variants={item} >
-                  <ProductCard data={data}/>
-                  </motion.li>
-                  </>
-                )
-              })}
-         
-          </motion.ul>
-        {/* </div> */}
-      
+
+      {/* <div className="w-full flex justify-center items-center flex-co p-2"> */}
+      <motion.ul
+        className=" md:w-full lg:w-full h-full md:m-5 grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 mx-auto sm:grid-cols-2 relative container"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
+        {datashow.map((data) => {
+          return (
+            <>
+              <motion.li key={data?.id} variants={item}>
+                <ProductCard data={data} key={data.id} />
+              </motion.li>
+            </>
+          );
+        })}
+      </motion.ul>
+      {/* </div> */}
+
       <div className="mt-10">
         <SpecialProduct />
       </div>
