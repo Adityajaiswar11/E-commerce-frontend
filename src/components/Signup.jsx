@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { LuLoader2 } from "react-icons/lu";
 import { TypeAnimation } from "react-type-animation";
 
 const Signup = () => {
@@ -23,14 +23,18 @@ const Signup = () => {
         password,
       });
       setLoading(data.ok);
-
-      toast.success("Signed Up Successfully! Please Login Now");
+      setEmail("");
+      setPassword("");
+      setName("");
+      toast.success("Registerd Successfully!");
       // Redirecting the user after sign up
+
       navigate("/login", { replace: true });
     } catch (err) {
       toast.error(err.response.data, {
-        position: "top-center",
+        position: "bottom-right",
       });
+      setLoading(false);
     }
   };
 
@@ -92,7 +96,7 @@ const Signup = () => {
               className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
               type="submit"
             >
-              {loading ? <LuLoader2 /> : "Register"}
+              Register
             </button>
           </div>
         </div>

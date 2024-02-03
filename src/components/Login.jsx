@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import bg from "../assets/Images/bg-5.png";
 const Login = () => {
   return (
-    <div className="flex justify-evenly items-center h-screen w-[80%] mx-auto">
+    <div className="flex md:justify-evenly items-center h-screen w-[80%] mx-auto justify-center flex-col md:flex-row gap-4">
       <div className="form-container bg-slate-900">
         <p className="title text-center text-2xl">Login</p>
         <form className="form">
@@ -37,7 +37,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="">
+      <div>
         <img src={bg} alt="../assets/Images/bg-5.png" />
       </div>
     </div>

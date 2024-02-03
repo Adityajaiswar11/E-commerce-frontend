@@ -45,16 +45,16 @@ const ProductCard = ({ data }) => {
   return (
     
       <div className="W-full md:px-4 py-4 px-10">
-        <div className=" shadow-sm shadow-white/70 rounded-lg md:p-2 p-1  bg-white/90 opacity-90 md:h-[500px] text-black">
+        <div className=" md:w-[250px] shadow-sm shadow-white/70 rounded-lg md:p-2 p-1  bg-white/90 opacity-90 md:h-[400px] text-black">
         <Link to={`/product/${data?.id}`}>
           <img
             src={data?.image}
             alt="img"
-            className="md:h-80 w-full rounded-lg shadow-lg hover:scale-105 cursor-pointer  duration-500 ease-linear sm:h-80"
+            className="md:h-[200px] w-full rounded-lg shadow-lg hover:scale-105 cursor-pointer  duration-500 ease-linear  md:w-[250px]"
           />
            </Link>
           <div className="">
-            <p className=" text-sm p-2 opacity-90 font-bold h-[80px]"> {data?.title}</p>
+            <p className=" text-sm p-2 opacity-90 font-bold h-[100px]"> {data?.title}</p>
             <p className="text-sm p-2 opacity-90 text-green-600 font-bold">
               Rating-{data?.rating.rate}
             </p>
@@ -66,7 +66,7 @@ const ProductCard = ({ data }) => {
                   disabled={isAdded}
                   className={`${
                     isAdded ? "bg-green-600" : " bg-[#b90f0f]"
-                  } bg-[#b90f0f] px-3 py-2  text-sm rounded-xl cursor-pointer hover:opacity-100 font-bold text-white opacity-90`}
+                  } bg-[#b90f0f] px-7 py-2  text-sm rounded-xl cursor-pointer hover:opacity-100 font-bold text-white opacity-90`}
                   onClick={(e) => {
                     addtoCart(e, data);
                   }}

@@ -1,4 +1,5 @@
 import "./index.css";
+eslint-disable no-unused-vars 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Product from "./components/Products";
