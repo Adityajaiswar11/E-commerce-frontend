@@ -19,7 +19,7 @@ const Navbar = () => {
           <>
             <ul
               onClick={() => setShow(false)}
-              className="md:hidden lg:hidden xl:hidden absolute top-16 left-0 right-0 h-[100vh] bg-[#171424] text-white w-full flex justify-center items-center gap-5 flex-col z-50 text-xl text-start sm:hidden"
+              className="md:hidden lg:hidden xl:hidden absolute top-16 left-0 right-0 h-[100vh] bg-[#171424] text-white w-full flex justify-center items-center gap-5 flex-col z-50 text-xl text-start"
             >
               <Link to="/" className="m-3">
                 Home

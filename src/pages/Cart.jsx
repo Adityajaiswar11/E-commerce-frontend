@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const [data, setData] = useState([]);
   const { cart, product } = useContext(Context);
+ 
 
   useEffect(() => {
     if (!cart.item) {
@@ -45,11 +46,37 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        ""
+        <>
+         <div className="w-[90%] mx-auto flex justify-between items-start  mt-[7rem] h-full mb-4 border-b pb-2 rounded-md">
+    <div className="text-xl font-semibold text-white/50">Product details</div>
+    <div className="text-xl font-semibold text-white/50">
+     Quantity
+    </div>
+    <div className="text-xl font-semibold text-white/50">
+     Price
+    </div>
+    <div className="text-xl font-semibold text-white/50">
+     Action
+    </div>
+    
+   
+ </div>
+        
+        {
+    data.map(data=> <Cartpage key={data.id}  data={data} cartid = {cart.item}/>)
+          
+         }
+      
+        </> 
+       
+     
+   
       )}
-      {data.map((data) => (
-        <Cartpage key={data?.id} data={data} />
-      ))}
+     
+
+   
+      
+     
     </>
   );
 };

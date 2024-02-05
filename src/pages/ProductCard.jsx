@@ -14,11 +14,7 @@ const ProductCard = ({ data }) => {
 
   const addtoCart = (e, data) => {
     e.preventDefault();
-    if(data){
-      toast.success("Item added successfully");
-    }else{
-      toast.error("something went wrong")
-    }
+    
 
     const _id = data.id; //getting a unique id
 
@@ -30,7 +26,7 @@ const ProductCard = ({ data }) => {
     if (addCart.item[_id]) {
       addCart.item[_id] += 1;
     } else {
-      addCart.item[_id] = 1;
+      addCart.item[_id] = 0;
     }
 
     if (!addCart.totalitem) {
@@ -40,6 +36,11 @@ const ProductCard = ({ data }) => {
 
     setCart(addCart);
     setIsAdded(true);
+    if(data){
+      toast.success("Item added successfully");
+    }else{
+      toast.error("something went wrong")
+    }
   };
 
   return (
