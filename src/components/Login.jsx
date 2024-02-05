@@ -33,7 +33,7 @@ const Login = () => {
             to="/signup"
             className="text-[14px] underline p-1 mt-1 text-blue-600"
           >
-            Sign up
+            Sign In
           </Link>
         </p>
       </div>
