@@ -55,15 +55,11 @@ const Banner = () => {
               convenience!
             </p>
           </div>
-          <div className="flex gap-10 md:mt-9 md:w-[30%] w-full justify-center md:justify-start mt-6 text-center">
+          <div className="">
+            
             <div>
-              <Link to="/login" className="bg-red-500 py-2 px-3 rounded-md">
-                Login
-              </Link>
-            </div>
-            <div>
-              <Link to="/signup" className="bg-blue-500 py-2 px-3 rounded-md ">
-                Sign up
+              <Link to="/signup" className="bg-red-500 py-2 px-3 rounded-md ">
+                  GET STARTED
               </Link>
             </div>
           </div>

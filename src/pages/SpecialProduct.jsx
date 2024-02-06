@@ -1,5 +1,6 @@
 import Special from "./Special";
 import { products } from "../utils/helper";
+import { Carousel } from "react-responsive-carousel";
 
 const SpecialProduct = () => {
 
@@ -9,9 +10,14 @@ const SpecialProduct = () => {
         Top deals
       </h1>
       <div className=" grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-1 w-full sm:grid-cols-2">
-       {
-         products.map(p => <Special key={p.id} p={p}/>)
-       }
+       
+        <Carousel>
+ {
+   products.map(p => <Special key={p.id} p={p}/>)
+ }
+          
+        </Carousel>
+       
       </div>
     </div>
   );

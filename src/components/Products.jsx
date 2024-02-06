@@ -53,7 +53,6 @@ const Products = () => {
         </h1>
       </div>
 
-      {/* <div className="w-full flex justify-center items-center flex-co p-2"> */}
       <motion.ul
         className=" md:w-full lg:w-full h-full md:m-5 grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 mx-auto sm:grid-cols-2 relative container"
         variants={container}

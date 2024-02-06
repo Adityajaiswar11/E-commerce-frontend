@@ -11,7 +11,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Cart from "./pages/Cart";
 import { ToastContainer } from "react-toastify";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 const App = () => {
   return (
     <>
