@@ -22,11 +22,13 @@ const Signup = () => {
         email,
         password,
       });
+      console.log(data);
       setLoading(data.ok);
       setEmail("");
       setPassword("");
       setName("");
       toast.success("Registerd Successfully!");
+
       // Redirecting the user after sign up
 
       navigate("/login", { replace: true });

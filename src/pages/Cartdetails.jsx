@@ -3,22 +3,17 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../utils/helper";
+
 
 import axios from "axios";
-import SpecialCart from "./SpecialCart";
+
 import Loader from "../components/Loader";
 
 const Cartdetails = () => {
   const [data, setData] = useState({});
-  const [item, setItem] = useState([]);
   const [loader, setLoader] = useState(false);
-  const params = useParams();
 
-  useEffect(() => {
-    const d = products.filter((d) => d.id == params.id);
-    setItem(d);
-  }, [params.id]);
+  const params = useParams();
 
   useEffect(() => {
     setLoader(true);
@@ -81,10 +76,6 @@ const Cartdetails = () => {
           </div>
         )
       )}
-
-      {item.map((d) => (
-        <SpecialCart key={d?.id} data={d} />
-      ))}
     </>
   );
 };

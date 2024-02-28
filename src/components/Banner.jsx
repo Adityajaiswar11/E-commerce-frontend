@@ -47,6 +47,7 @@ const Banner = () => {
               ]}
               wrapper="span"
               speed={20}
+              cursor={false}
               className="md:text-[3rem] text-[2rem] text-red-500 text-center h-[100px] md:h-full p-3 opacity-90"
               repeat={Infinity}
             />
@@ -56,10 +57,12 @@ const Banner = () => {
             </p>
           </div>
           <div className="">
-            
-            <div>
-              <Link to="/signup" className="bg-red-500 py-2 px-3 rounded-md ">
-                  GET STARTED
+            <div className="mt-2 font-semibold">
+              <Link
+                to="/signup"
+                className="bg-red-500 py-2 px-3 rounded-md  hover:shadow-md shadow-white/70 duration-100"
+              >
+                Sign In
               </Link>
             </div>
           </div>

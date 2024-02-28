@@ -1,6 +1,3 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-
 const Slide = () => {
   const data = [
     {
@@ -8,10 +5,10 @@ const Slide = () => {
       pic: "/images/c-2.avif",
     },
 
-    {
-      id: 2,
-      pic: "/images/c-3.avif",
-    },
+    // {
+    //   id: 2,
+    //   pic: "/images/c-3.avif",
+    // },
 
     {
       id: 3,
@@ -25,23 +22,8 @@ const Slide = () => {
 
   return (
     <>
-      <div className="border-b">
-        <marquee direction="" className=" capitalize p-2 mt-3">
-          sale sale sale ! buy now 50% off
-        </marquee>
-        <Carousel
-          className="p-3 w-[90%] mx-auto"
-          dynamicHeight={true}
-          showThumbs={false}
-        >
-          {data?.map((d) => {
-            return (
-              <div className="h-[90%]" key={d?.id}>
-                <img src={d?.pic} alt="img" className="" />
-              </div>
-            );
-          })}
-        </Carousel>
+      <div className="w-[90%] mx-auto bg-red-200 mt-10 h-screen">
+        <img src={data[1].pic} alt="" />
       </div>
     </>
   );

@@ -1,14 +1,21 @@
-/* eslint-disable no-extra-boolean-cast */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
+
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
-import { getDataFromLocalStorage } from "./helper";
 export const Context = createContext();
 
 export const AppContext = (props) => {
+  const getDataFromLocalStorage = () => {
+    const data = localStorage.getItem("cart");
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return {};
+    }
+  };
+
   // State for the context
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState(getDataFromLocalStorage());
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -22,7 +29,7 @@ export const AppContext = (props) => {
     };
 
     getProduct();
-  },[]);
+  }, []);
 
   //storing cart items in local storage
   useEffect(() => {
@@ -30,9 +37,6 @@ export const AppContext = (props) => {
   }, [cart]);
 
   //getting a list of cart items in local storage
-  useEffect(() => {
-    getDataFromLocalStorage().then((res) => setCart(JSON.parse(res)));
-  }, []);
 
   return (
     <Context.Provider

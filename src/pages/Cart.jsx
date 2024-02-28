@@ -1,40 +1,90 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Cart = () => {
-  const [data, setData] = useState([]);
-  const { cart, product} = useContext(Context);
+  let totalItemPrice = 0;
+  const { cart, product, setCart } = useContext(Context);
   const [close, setClose] = useState(false);
-  const [deleteid,setDeleteit] = useState()
+  const [deleteid, setDeleteit] = useState();
+  const [filterdata, setFilterData] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!cart.item) {
       return;
     }
+
     const id = Object.keys(cart.item);
 
-    const total = product.filter((data) => {
-      return id.includes(data.id.toString());
+    const total = product.filter((item) => {
+      return id.includes(item.id.toString());
     });
-
-    setData(total);
+    setFilterData(total);
   }, [cart]);
 
-  
-    const removeItem = () => {
-      const newData = data.filter((d) => d.id !== deleteid.id);
-      console.log(newData);
-      setData(newData);
-      setClose(false);
-    };
-    
-  
+  const removeItem = () => {
+    const addCart = { ...cart }; //{item:{}}
+    let remove = cart.item[deleteid];
+    console.log(remove);
+    delete cart.item[deleteid];
+    addCart.totalitem -= remove;
+
+    setCart(addCart);
+
+    const newData = filterdata.filter((d) => d.id !== deleteid);
+    setFilterData(newData);
+    setClose(false);
+  };
+
+  const totalItem = (id) => {
+    return cart.item[id];
+  };
+
+  const increamentCart = (id) => {
+    let Qauntity = cart.item[id];
+    let cartItem = { ...cart };
+    cartItem.item[id] = Qauntity + 1;
+    cartItem.totalitem += 1;
+
+    setCart(cartItem);
+  };
+
+  const decreamentCart = (id) => {
+    let Qauntity = cart.item[id];
+    let cartItem = { ...cart };
+    if (cartItem.item[id] === 1) {
+      return;
+    }
+    cartItem.item[id] = Qauntity - 1;
+    cartItem.totalitem -= 1;
+
+    setCart(cartItem);
+  };
+
+  const totalPrice = (price, id) => {
+    let sum = totalItem(id) * price;
+    // console.log(sum)
+    totalItemPrice += sum;
+    return sum;
+  };
+
+  const handleOrder = () => {
+    toast.success("You have ordered successfully. Thank you!", {
+      position: "top-center",
+    });
+    setCart({ item: {}, totalitem: 0 });
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 5000);
+  };
 
   return (
     <>
-      {data.length == 0 ? (
+      {filterdata.length == 0 ? (
         <div className="mt-[7rem] flex md:justify-evenly items-center flex-col md:flex-row justify-center">
           <img
             src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png"
@@ -73,14 +123,14 @@ const Cart = () => {
             </h1>
           </div>
           <ul className="mb-12 px-2">
-            {data.map((item) => {
+            {filterdata.map((item) => {
               return (
-                <div key={item.id}>
-                  <li className={`${close ? "opacity-20 mb-5" :"mb-5"}`}>
+                <div key={item?.id}>
+                  <li className={`${close ? "opacity-20 mb-5" : "mb-5"}`}>
                     <div className="flex justify-between items-center">
                       <div className="flex md:justify-start gap-[6px] items-center p-2 w-[30%] md:flex-row flex-col text-center md:text-left">
                         <img
-                          src={item.image}
+                          src={item?.image}
                           alt=""
                           className="md:h-20 md:w-20  h-10 w-10 rounded-md shadow-md "
                         />
@@ -90,16 +140,28 @@ const Cart = () => {
                       </div>
 
                       <div>
-                        <button className="px-2 py-2 rounded-md">-</button>
-                        <b className="px-3 ">2</b>
-                        <button className="px-2 py-2 rounded-md leading-none">
+                        <button
+                          className="px-3 py-1 rounded-md bg-slate-600 "
+                          onClick={() => decreamentCart(item.id)}
+                        >
+                          -
+                        </button>
+                        <b className="px-3 "> {totalItem(item.id)}</b>
+                        <button
+                          className="px-2 py-2 rounded-md leading-none bg-slate-600"
+                          onClick={() => increamentCart(item.id)}
+                        >
                           +
                         </button>
                       </div>
-                      <span className="font-semibold ">$ {item.price}</span>
+                      <span className="font-semibold ">
+                        $ {totalPrice(item?.price, item.id)}
+                      </span>
                       <button
-                        className="py-2 px-2 rounded-md bg-red-500 text-[14px] "
-                        onClick={()=>{setClose(true) , setDeleteit(item)}}
+                        className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out"
+                        onClick={() => {
+                          setClose(true), setDeleteit(item.id);
+                        }}
                       >
                         Remove
                       </button>
@@ -109,22 +171,22 @@ const Cart = () => {
                   {close && (
                     <div className="w-[400px] h-[220px] rounded-md bg-gray-800 absolute top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
                       <div className="text-white/50 font-semibold">
-                      <h1 className="mb-[5rem] text-center mt-3 text-[20px]">
-                        Do want to remove this item from cart?
-                        <br />
-                        <span>Are you sure ?</span>
-                      </h1>
+                        <h1 className="mb-[5rem] text-center mt-3 text-[20px]">
+                          Do want to remove this item from cart?
+                          <br />
+                          <span>Are you sure ?</span>
+                        </h1>
                       </div>
 
                       <div className="flex justify-center gap-5 items-center p-2">
                         <button
                           className="py-2 px-5 bg-slate-600 rounded-md hover:bg-red-500 duration-200 font-semibold"
-                          onClick={()=>removeItem()}
+                          onClick={() => removeItem()}
                         >
                           Yes
                         </button>
                         <button
-                          className="py-2 px-5 rounded-md bg-slate-600 hover:bg-red-500 duration-200 font-semibold"
+                          className="py-2 px-5 rounded-md bg-slate-600 hover:bg-green-500 duration-200 font-semibold"
                           onClick={() => setClose(false)}
                         >
                           No
@@ -136,6 +198,19 @@ const Cart = () => {
               );
             })}
           </ul>
+          <div className="flex justify-end items-end mt-4 flex-col">
+            <div className="text-center">
+              <h1 className="text-md  font-semibold mb-4">
+                Total Price: $ {totalItemPrice}{" "}
+              </h1>
+              <button
+                className="py-2 px-2 bg-green-500 rounded-md text-[1rem] font-semibold mb-5 hover:bg-green-700 duration-200 ease-in-out"
+                onClick={handleOrder}
+              >
+                Order Now{" "}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>

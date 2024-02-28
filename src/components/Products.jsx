@@ -1,7 +1,6 @@
 import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState, useContext } from "react";
-import SpecialProduct from "../pages/SpecialProduct";
 import Loader from "./Loader";
 import ProductCard from "../pages/ProductCard";
 import { motion } from "framer-motion";
@@ -69,11 +68,6 @@ const Products = () => {
           );
         })}
       </motion.ul>
-      {/* </div> */}
-
-      <div className="mt-10">
-        <SpecialProduct />
-      </div>
     </>
   );
 };

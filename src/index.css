@@ -97,3 +97,21 @@ input {
 .banner {
   background-image: url("./assets/Images/product-banner.webp");
 }
+.navbtn {
+  transition: 0.4s ease-in-out;
+  position: relative;
+  display: inline-block;
+}
+
+.navbtn::before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: red;
+  top: 27px;
+  transition: 0.4s ease-in-out;
+}
+.navbtn:hover::before {
+  width: 100%;
+}
