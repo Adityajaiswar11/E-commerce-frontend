@@ -16,7 +16,7 @@ const Signup = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      setLoading(false);
+      setLoading();
       const { data } = await axios.post(`${apiURl}/signup`, {
         name,
         email,
@@ -54,9 +54,11 @@ const Signup = () => {
         <div className="w-80 rounded-2xl relative h-[450px]">
           <div className="flex flex-col gap-1 ">
             <TypeAnimation
-              sequence={["Welcome to EasyShop", 1000, "Please Register here.."]}
+              sequence={["Welcome to EasyShop", 1000, "Please register here.."]}
               wrapper="span"
               speed={20}
+              cursor={false}
+              infinite={false}
               className="text-center text-2xl text-red-600 mb-4 font-bold opacity-90"
             />
             <label className=" opacity-80 text-[#9ca3af]">Name</label>

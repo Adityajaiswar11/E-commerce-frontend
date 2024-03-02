@@ -46,8 +46,8 @@ const Products = () => {
     <Loader />
   ) : (
     <>
-      <div className="banner text-center flex justify-center items-center opacity-80 mt-[4.7rem]">
-        <h1 className=" text-5xl mt-12 pb-24 text-center first-letter:text-yellow-500">
+      <div className="banner text-center flex justify-center items-center opacity-80 mt-[4rem]">
+        <h1 className=" text-5xl mt-12 pb-24 text-center first-letter:text-red-600 font-semibold">
           Our Products
         </h1>
       </div>

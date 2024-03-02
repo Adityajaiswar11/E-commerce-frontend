@@ -18,6 +18,7 @@ const Cart = () => {
       return;
     }
 
+    
     const id = Object.keys(cart.item);
 
     const total = product.filter((item) => {

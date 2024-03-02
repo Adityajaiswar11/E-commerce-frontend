@@ -115,3 +115,36 @@ input {
 .navbtn:hover::before {
   width: 100%;
 }
+
+/* image slider css */
+
+.slider {
+  position: relative;
+}
+
+.slider .btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 12rem;
+}
+.btn .icons {
+  padding: 8px 14px;
+  font-size: 1rem;
+  border-radius: 50%;
+  color: wheat;
+  cursor: pointer;
+}
+.hidden {
+  display: none;
+}
+.slide {
+  background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+}

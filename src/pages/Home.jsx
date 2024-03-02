@@ -1,5 +1,6 @@
 import Banner from "../components/Banner";
 import Product from "../components/Products";
+import Contact from "./Contact";
 import Slide from "./Slide";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
          <Slide/>
       </div>
       <Product />
+      <Contact/>
     </>
   );
 };

@@ -38,7 +38,7 @@ const Login = () => {
         </p>
       </div>
       <div>
-        <img src={bg} alt="../assets/Images/bg-5.png" />
+        <img src={bg} alt="image" />
       </div>
     </div>
   );

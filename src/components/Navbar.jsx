@@ -6,36 +6,21 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { Context } from "../utils/Constant";
 import { FaShoppingCart } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
+import MobileViewNavbar from "./MobileViewNavbar";
+
 
 const Navbar = () => {
   const { cart } = useContext(Context);
 
   const [show, setShow] = useState(false);
+  
   return (
     <>
       <div className="shadow-sm md:py-1 shadow-black  fixed bg-[#eeebeb]  top-0 left-0 z-40 w-full text-black">
         {/* navbar for mobile devices */}
-        {show && (
-          <>
-            <ul
-              onClick={() => setShow(false)}
-              className="md:hidden lg:hidden xl:hidden absolute top-16 left-0 right-0 h-[100vh] bg-[#171424] text-white w-full flex justify-center items-center gap-5 flex-col z-50 text-xl text-start"
-            >
-              <Link to="/" className="m-3">
-                Home
-              </Link>
-              <Link to="/product" className="m-3">
-                Product
-              </Link>
-              <Link to="/about" className="m-3">
-                About
-              </Link>
-              <Link to="/contact" className="m-3">
-                Contact
-              </Link>
-            </ul>
-          </>
-        )}
+      
+      {show &&   <MobileViewNavbar setShow ={setShow}/>}
+          
 
         <nav className=" flex justify-between items-center mx-auto w-11/ h-16 md:p-5">
           <div className=" flex justify-between items-center gap-2 relative">
