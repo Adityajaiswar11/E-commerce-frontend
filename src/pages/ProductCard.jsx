@@ -34,7 +34,7 @@ const ProductCard = ({ data }) => {
 
     setCart(addCart);
     setIsAdded(true);
-    if (data) {
+    if (_id) {
       toast.success("Item added successfully");
     } else {
       toast.error("something went wrong");
@@ -43,14 +43,15 @@ const ProductCard = ({ data }) => {
 
   return (
     <div className="W-full md:px-4 py-4 px-10">
+       <Link to={`/product/${data?.id}`}>
       <div className=" md:w-[250px] shadow-sm shadow-white/70 rounded-lg md:p-2 p-1  bg-white/90 opacity-90 md:h-[400px] text-black">
-        <Link to={`/product/${data?.id}`}>
+       
           <img
             src={data?.image}
             alt="img"
             className="md:h-[200px] w-full rounded-lg shadow-lg hover:scale-105 cursor-pointer  duration-500 ease-linear  md:w-[250px]"
           />
-        </Link>
+     
         <div className="">
           <p className=" text-sm p-2 opacity-90 font-bold h-[100px]">
             {" "}
@@ -78,6 +79,7 @@ const ProductCard = ({ data }) => {
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

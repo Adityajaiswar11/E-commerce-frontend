@@ -10,33 +10,33 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const apiURl = import.meta.env.VITE_API_URL;
 
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      setLoading();
-      const { data } = await axios.post(`${apiURl}/signup`, {
+      const data  = await axios.post(`${apiURl}/signup`, {
         name,
         email,
         password,
       });
       console.log(data);
-      setLoading(data.ok);
       setEmail("");
       setPassword("");
       setName("");
-      toast.success("Registerd Successfully!");
-
+      if(data.status==200){
+          toast.success("Registration successfully registered")
+          navigate("/login", { replace: true });
+      }else{
+        toast.error("Registration failed")
+      }
       // Redirecting the user after sign up
 
-      navigate("/login", { replace: true });
     } catch (err) {
       toast.error(err.response.data, {
         position: "bottom-right",
       });
-      setLoading(false);
+      
     }
   };
 

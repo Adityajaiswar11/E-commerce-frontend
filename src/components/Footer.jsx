@@ -5,7 +5,7 @@ import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <footer className="footer-1py-8 sm:py-12 border-t">
+      <footer className="footer-1py-8 sm:py-12 border-t bg-black/50">
         <div className="container mx-auto px-4">
           <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
             <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
@@ -14,15 +14,15 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Home
                   </a>
                 </li>
                 <li className="mb-2">
                   <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    href=""
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Product
                   </a>
@@ -30,7 +30,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Contact
                   </a>
@@ -38,7 +38,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Sign Up
                   </a>
@@ -51,7 +51,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Team
                   </a>
@@ -59,7 +59,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Locations
                   </a>
@@ -67,7 +67,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Privacy
                   </a>
@@ -75,7 +75,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Terms
                   </a>
@@ -88,7 +88,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Support
                   </a>
@@ -96,7 +96,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Help Center
                   </a>
@@ -104,7 +104,7 @@ const Footer = () => {
                 <li className="mb-2">
                   <a
                     href="#"
-                    className="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800"
+                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
                   >
                     Contact Us
                   </a>
@@ -129,8 +129,8 @@ const Footer = () => {
             </div>
             <div className="px-4 sm:w-1/2 md:w-1/4 mt-4 md:mt-0">
               <h6 className="font-bold mb-2">Address</h6>
-              <address className="not-italic mb-4 text-sm">
-                14th road
+              <address className="not-italic mb-4 text-sm opacity-80">
+                14th Road ,
                 <br />
                 India , Mumbai- 400051
               </address>

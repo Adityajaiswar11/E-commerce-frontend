@@ -45,9 +45,9 @@ const Products = () => {
   return loader ? (
     <Loader />
   ) : (
-    <>
+    <div id="product-container">
       <div className="banner text-center flex justify-center items-center opacity-80 mt-[4rem]">
-        <h1 className=" text-5xl mt-12 pb-24 text-center first-letter:text-red-600 font-semibold">
+        <h1 className=" text-5xl mt-12 pb-24 text-center first-letter:text-red-600 font-semibold web">
           Our Products
         </h1>
       </div>
@@ -68,7 +68,7 @@ const Products = () => {
           );
         })}
       </motion.ul>
-    </>
+    </div>
   );
 };
 

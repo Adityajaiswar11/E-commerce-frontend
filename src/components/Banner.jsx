@@ -29,7 +29,7 @@ const Banner = () => {
       animate="visible"
       className="container p-4"
     >
-      <div className="md:h-screen md:flex items-center  md:mt-[4rem] mt-[5.4rem] md:flex-row justify-center mb-[3rem] md:mb-0 md:border-b-[1px] md:border-r-white ">
+      <div className="md:h-screen md:flex items-center  md:mt-[4rem] mt-[5.4rem] md:flex-row justify-center mb-[3rem] md:mb-0 md:border-b-[1px] md:border-r-white">
         <motion.ul
           className="flex flex-col md:w-[80%] w-full items-center justify-center mt-7 md:mt-0 opacity-80"
           variants={item}

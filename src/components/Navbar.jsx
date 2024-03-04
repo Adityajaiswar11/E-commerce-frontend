@@ -4,15 +4,31 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { Context } from "../utils/Constant";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser,  } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import MobileViewNavbar from "./MobileViewNavbar";
+
+
 
 
 const Navbar = () => {
   const { cart } = useContext(Context);
 
   const [show, setShow] = useState(false);
+  // const[user,setUser] = useState({});
+
+  // const getusers = async()=>{
+  //   try{
+  //     const res = await axios.get("http://localhost:3000/api/user/65d2d5928ea30b5d22d80409");
+  //     const data = res.data;
+  //        setUser(data)
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // }
+  // useEffect(()=>{
+  //    getusers()
+  // },[])
   
   return (
     <>
@@ -54,6 +70,10 @@ const Navbar = () => {
             <li className="navbtn hover:text-red-600 duration-200 font-semibold">
               <Link to="/contact">Contact</Link>
             </li>
+
+            <button className=" hover:text-red-600 duration-200 font-semibold" onClick={()=>setShow(!show)}>
+              <FaUser className="text-2xl text-red-600"/>
+            </button>
             <div className="md:mr-6">
               <Link to={`/cart`}>
                 <div className="relative">
@@ -89,6 +109,12 @@ const Navbar = () => {
           )}
         </nav>
       </div>
+
+     {/* {show && <div className="absolute top-[5rem] right-3 w-48 h-40 bg-slate-400 text-black rounded-md ">
+                <FaUserCircle className="text-[3rem] text-white/80 mx-auto mt-5"/>
+               <h1 className="text-center py-1 first-letter:capitalize font-semibold">Name : {user.name}</h1>
+               <p className="lowerCase text-center font-semibold">Email : {user.email}</p>
+          </div>} */}
     </>
   );
 };
