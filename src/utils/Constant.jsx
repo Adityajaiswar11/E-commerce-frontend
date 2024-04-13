@@ -17,12 +17,15 @@ export const AppContext = (props) => {
   // State for the context
   const [cart, setCart] = useState(getDataFromLocalStorage());
   const [product, setProduct] = useState([]);
+  const [search, setSearch] = useState("");
+  const [userLog, setUserLog] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get("https://fakestoreapi.com/products");
-        setProduct(res.data);
+        const res = await axios.get("https://dummyjson.com/products?limit=52");
+        setProduct(res.data.products);
       } catch (err) {
         console.log(err);
       }
@@ -44,6 +47,12 @@ export const AppContext = (props) => {
         cart,
         setCart,
         product,
+        search,
+        setSearch,
+        userLog,
+        setUserLog,
+        user,
+        setUser,
       }}
     >
       {props.children}

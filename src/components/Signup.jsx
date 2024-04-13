@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { TypeAnimation } from "react-type-animation";
+import { Context } from "../utils/Constant";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -12,36 +13,37 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const apiURl = import.meta.env.VITE_API_URL;
 
+  const { setUserLog } = useContext(Context);
+
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const data  = await axios.post(`${apiURl}/signup`, {
+      const data = await axios.post(`${apiURl}/signup`, {
         name,
         email,
         password,
       });
-      console.log(data);
+
       setEmail("");
       setPassword("");
       setName("");
-      if(data.status==200){
-          toast.success("Registration successfully registered")
-          navigate("/login", { replace: true });
-      }else{
-        toast.error("Registration failed")
+      if (data.status == 200) {
+        toast.success("Registration successfully registered");
+        navigate("/login", { replace: true });
+      } else {
+        toast.error("Registration failed");
+        setUserLog(false);
       }
       // Redirecting the user after sign up
-
     } catch (err) {
       toast.error(err.response.data, {
         position: "bottom-right",
       });
-      
     }
   };
 
   return (
-    <div className="flex md:flex-row md:justify-evenly items-center z-10  md:mt-10 p-10 justify-center  flex-col mt-14">
+    <div className="flex md:flex-row md:justify-evenly items-center z-10  md:mt-10 p-10 justify-center  flex-col mt-14 bg-slate-900">
       <div className="">
         <img
           src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg"

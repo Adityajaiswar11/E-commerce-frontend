@@ -4,14 +4,14 @@ import Navbar from "./components/Navbar";
 import Product from "./components/Products";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-import Footer from "./components/Footer";
 import Cartdetails from "./pages/Cartdetails";
-import { AppContext } from "./utils/Constant";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Cart from "./pages/Cart";
 import { ToastContainer } from "react-toastify";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { AppContext } from "./utils/Constant";
+import Footer from "./components/Footer";
+
 const App = () => {
   return (
     <>
@@ -21,10 +21,8 @@ const App = () => {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Home />} exact></Route>
-            <Route path="/product" exact element={<Product />}>
-              {" "}
-            </Route>
+            <Route path="/" exact element={<Home />}></Route>
+            <Route path="/product" element={<Product />}></Route>
 
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="product/:id" element={<Cartdetails />}></Route>
@@ -32,7 +30,6 @@ const App = () => {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
           </Routes>
-
           <Footer />
         </AppContext>
       </BrowserRouter>

@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-loader-spinner": "^6.1.6",
+    "react-rating-stars-component": "^2.2.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.18.0",
     "react-simple-image-slider": "^2.4.1",

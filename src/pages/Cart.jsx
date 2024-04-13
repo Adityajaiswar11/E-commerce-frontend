@@ -18,7 +18,6 @@ const Cart = () => {
       return;
     }
 
-    
     const id = Object.keys(cart.item);
 
     const total = product.filter((item) => {
@@ -73,16 +72,25 @@ const Cart = () => {
     return sum;
   };
 
+  const { userLog } = useContext(Context);
   const handleOrder = () => {
-    toast.success("You have ordered successfully. Thank you!", {
-      position: "top-center",
-    });
-    setCart({ item: {}, totalitem: 0 });
-    setTimeout(() => {
-      navigate("/", { replace: true });
-    }, 5000);
+    if (userLog) {
+      toast.success("You have ordered successfully. Thank you!", {
+        position: "top-center",
+      });
+      setCart({ item: {}, totalitem: 0 });
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 5000);
+    } else {
+      toast.error("Please Log in first");
+      setTimeout(() => {
+        navigate("/signup");
+      }, 3000);
+    }
   };
 
+  console.log(filterdata);
   return (
     <>
       {filterdata.length == 0 ? (
@@ -100,7 +108,7 @@ const Cart = () => {
             </p>
             <Link
               to="/"
-              className="py-2 px-3 bg-red-500 rounded-md hover:bg-red-600 duration-150"
+              className="py-2 px-3 bg-red-500 rounded-md hover:bg-red-600 duration-150 font-semibold text-white"
             >
               Continue Shopping
             </Link>
@@ -108,36 +116,33 @@ const Cart = () => {
         </div>
       ) : (
         <div className="md:mx-auto md:w-[80%] w-full  mt-[6rem] border-b-0 md:px-5 ">
-          <div className="font-semibold mb-5 p-2 flex justify-between items-center">
-            <h1 className="  text-md  text-white/60 border-0 border-gray w-[30%] pl-3 md:pl-0">
+          <h1 className="px-2 text-xl font-semibold py-5">
+            Total Items : {filterdata.length}
+          </h1>
+          <div className="font-semibold mb-5 p-2 flex justify-between items-center ">
+            <h1 className="  text-md  text-black/80 font-bold w-[30%] pl-3 md:pl-0">
               {" "}
               Products{" "}
             </h1>
-            <h1 className="  text-md  text-white/60 border-0 border-gray ">
-              Qauntity{" "}
-            </h1>
-            <h1 className="  text-md  text-white/60 border-0 border-gray ">
-              Price{" "}
-            </h1>
-            <h1 className="  text-md  text-white/60 border-0 border-gray ">
-              Action{" "}
-            </h1>
+            <h1 className="  text-md  text-black/80 font-bold  ">Qauntity </h1>
+            <h1 className="  text-md  text-black/80 font-bold ">Price </h1>
+            <h1 className="  text-md  text-black/80 font-bold">Action </h1>
           </div>
           <ul className="mb-12 px-2">
             {filterdata.map((item) => {
               return (
-                <div key={item?.id}>
+                <div key={item?.id} className="border w-full px-1">
                   <li className={`${close ? "opacity-20 mb-5" : "mb-5"}`}>
                     <div className="flex justify-between items-center">
                       <div className="flex md:justify-start gap-[6px] items-center p-2 w-[30%] md:flex-row flex-col text-center md:text-left">
                         <img
-                          src={item?.image}
+                          src={item?.thumbnail}
                           alt=""
-                          className="md:h-20 md:w-20  h-10 w-10 rounded-md shadow-md "
+                          className="md:h-[8rem] md:w-[8rem]  h-10 w-10 rounded-md shadow-md "
                         />
-                        <span className="text-[12px] text-white/60 font-light">
+                        <p className="text-[12px] md:text-[1rem] text-red-600 font-semibold">
                           {item.title}
-                        </span>
+                        </p>
                       </div>
 
                       <div>
@@ -159,7 +164,7 @@ const Cart = () => {
                         $ {totalPrice(item?.price, item.id)}
                       </span>
                       <button
-                        className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out"
+                        className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out font-semibold"
                         onClick={() => {
                           setClose(true), setDeleteit(item.id);
                         }}
@@ -170,7 +175,7 @@ const Cart = () => {
                   </li>
 
                   {close && (
-                    <div className="w-[400px] h-[220px] rounded-md bg-gray-800 absolute top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
+                    <div className="w-[400px] h-[220px] rounded-md bg-gray-800 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
                       <div className="text-white/50 font-semibold">
                         <h1 className="mb-[5rem] text-center mt-3 text-[20px]">
                           Do want to remove this item from cart?

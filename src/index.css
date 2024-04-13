@@ -5,8 +5,8 @@
 body,
 html {
   scroll-behavior: smooth;
-  background-color: #0e0e22;
-  color: #fff;
+  /* background-color: #0e0e22;
+  color: #fff; */
   overflow-x: hidden;
 }
 
@@ -160,4 +160,8 @@ marquee {
     #c850c0 46%,
     #ffcc70 100%
   );
+}
+
+button{
+  color: white;
 }

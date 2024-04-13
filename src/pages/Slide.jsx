@@ -35,14 +35,6 @@ const Slide = () => {
 
   return (
     <>
-      <div className="w-[90%] mx-auto mt-1">
-        <marquee
-          direction="down"
-          className="text-2xl mt-5 py-4  text-center rounded-md px-2"
-        >
-          Unlock Your Shopping Potential
-        </marquee>
-      </div>
       <div className="slide w-[90%] bg-[#4158D0] mx-auto mt-20 text-center flex justify-center items-center md:h-[70vh] bg-gradient-to-tl h-[50vh] rounded-full">
         <h2 className="text-3xl font-semibold md:block hidden">TOP DEALS</h2>
         {data.map((img, i) => {

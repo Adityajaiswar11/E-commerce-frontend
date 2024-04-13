@@ -6,7 +6,7 @@ import Slide from "./Slide";
 const Home = () => {
   return (
     <>
-    <Banner/>
+       <Banner/>
       <div className="my-10 md:my-0">
          <Slide/>
       </div>

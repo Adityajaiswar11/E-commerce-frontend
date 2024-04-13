@@ -27,9 +27,9 @@ const Banner = () => {
       variants={container}
       initial="hidden"
       animate="visible"
-      className="container p-4"
+      className="container w-full"
     >
-      <div className="md:h-screen md:flex items-center  md:mt-[4rem] mt-[5.4rem] md:flex-row justify-center mb-[3rem] md:mb-0 md:border-b-[1px] md:border-r-white">
+      <div className="md:h-[34.3rem] w-full md:flex items-center  md:mt-[4rem] mt-[5.4rem] md:flex-row justify-center  md:mb-0 md:border-b-[1px] md:border-r-white bg-slate-900 text-white">
         <motion.ul
           className="flex flex-col md:w-[80%] w-full items-center justify-center mt-7 md:mt-0 opacity-80"
           variants={item}
@@ -60,7 +60,7 @@ const Banner = () => {
             <div className="mt-2 font-semibold">
               <Link
                 to="/signup"
-                className="bg-red-500 py-2 px-3 rounded-md  hover:shadow-md shadow-white/70 duration-100"
+                className="bg-red-500 py-2 px-3 rounded-md text-white border hover:shadow-md shadow-white/70 duration-100"
               >
                 Sign In
               </Link>

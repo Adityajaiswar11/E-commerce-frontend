@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useState, useContext } from "react";
+import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { Context } from "../utils/Constant";
 
@@ -44,24 +45,44 @@ const ProductCard = ({ data }) => {
   return (
     <div className="W-full md:px-4 py-4 px-10">
        <Link to={`/product/${data?.id}`}>
-      <div className=" md:w-[250px] shadow-sm shadow-white/70 rounded-lg md:p-2 p-1  bg-white/90 opacity-90 md:h-[400px] text-black">
+      <div className=" md:w-[230px]  rounded-lg md:p-2 p-1  bg-white/90 opacity-90 text-black shadow-sm shadow-black hover:scale-[1.1] duration-200 ease-linear">
        
           <img
-            src={data?.image}
-            alt="img"
-            className="md:h-[200px] w-full rounded-lg shadow-lg hover:scale-105 cursor-pointer  duration-500 ease-linear  md:w-[250px]"
+            src={data?.
+              thumbnail
+              }
+            alt={data?.title}
+            className="md:h-[200px] w-full rounded-lg shadow-lg hover:scale-105 cursor-pointer  duration-500 ease-linear  h-[200px] object-cover"
           />
      
         <div className="">
-          <p className=" text-sm p-2 opacity-90 font-bold h-[100px]">
+          <p className=" text-md p-2 text-red-700 font-semibold md:h-[70px] ">
             {" "}
             {data?.title}
           </p>
-          <p className="text-sm p-2 opacity-90 text-green-600 font-bold">
-            Rating-{data?.rating.rate}
+          <p className=" text-[14px] opacity-80 font-semibold md:h-[100px]">
+            {" "}
+            {data?.description}
           </p>
+          <p className="text-sm p-2 opacity-90 text-black/80 font-bold">
+          Rating
+          <ReactStars
+    count={data?.rating}
+    value={data?.rating}
+    size={20}
+    edit={false}
+    isHalf={true}
+    emptyIcon={<i className="far fa-star"></i>}
+    halfIcon={<i className="fa fa-star-half-alt"></i>}
+    fullIcon={<i className="fa fa-star"></i>}
+    activeColor={"#ffd700"}
+    classNames="py-1"
+  />
+  <p className="py-2">Discount : <s>{data?.discountPercentage}</s>%</p>
+          </p>
+     
           <div className="flex justify-between items-center ">
-            <h1 className="p-2 font-bold">Price: ${data?.price}</h1>
+            <h1 className="p-2 font-bold opacity-90">Price: ${data?.price}</h1>
 
             <div>
               <button
