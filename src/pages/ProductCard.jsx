@@ -56,11 +56,11 @@ const ProductCard = ({ data }) => {
           />
      
         <div className="">
-          <p className=" text-md p-2 text-red-700 font-semibold md:h-[70px] ">
+          <p className=" text-md p-2 text-red-700 font-semibold line-clamp-1">
             {" "}
             {data?.title}
           </p>
-          <p className=" text-[14px] opacity-80 font-semibold md:h-[100px]">
+          <p className=" text-[14px] opacity-80 font-semibold line-clamp-2">
             {" "}
             {data?.description}
           </p>
