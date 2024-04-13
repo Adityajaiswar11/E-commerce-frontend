@@ -37,7 +37,7 @@ const Banner = () => {
           <div className="md:w-1/2 w-full flex justify-center flex-col items-center mt-7 md:mt-0">
             <TypeAnimation
               sequence={[
-                "Welcome to the EasyShop app",
+                "Welcome to the EazyShop app",
                 2000,
                 "ONLINE SHOPPING APP",
                 1000,

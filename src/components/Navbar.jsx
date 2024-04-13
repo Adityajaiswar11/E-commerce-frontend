@@ -39,7 +39,7 @@ const Navbar = () => {
               to="/"
               className=" md:text-2xl font-semibold text-md opacity-80 first-letter:text-red-700 first-letter:font-bold"
             >
-              Easyshop
+              Eazyshop
             </Link>
           </div>
 
