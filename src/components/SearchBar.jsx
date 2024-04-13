@@ -47,13 +47,13 @@ export const Searchbar = () => {
               Filter By Product Category
             </h1>
             <select
-              className="md:w-[300px] w-full border border-gray-300 py-2 px-2 rounded-sm cursor-pointer"
+              className="md:w-[300px] w-full border border-gray-300 py-2 px-2 rounded-sm cursor-pointer first-letter:capitalize"
               onChange={(e) => setSearch(e.target.value)}
             >
               <option hidden>Select Product Categary</option>
               <option value=" ">All Products</option>
               {category.map((cate)=>(
-                    <option value={cate} key={cate} className="cursor-pointer">{cate}</option>
+                    <option value={cate} key={cate} className="cursor-pointer  font-semibold">{cate}</option>
               ))}
             </select>
           </div>

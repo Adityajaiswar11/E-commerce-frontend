@@ -45,7 +45,7 @@ const ProductCard = ({ data }) => {
   return (
     <div className="W-full md:px-4 py-4 px-10">
        <Link to={`/product/${data?.id}`}>
-      <div className=" md:w-[230px]  rounded-lg md:p-2 p-1  bg-white/90 opacity-90 text-black shadow-sm shadow-black hover:scale-[1.1] duration-200 ease-linear">
+      <div className=" md:w-[230px]  rounded-lg md:p-2 p-1  bg-white/90  text-black shadow-sm shadow-black hover:scale-[1.1] duration-200 ease-linear">
        
           <img
             src={data?.

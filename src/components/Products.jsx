@@ -101,7 +101,7 @@ const Products = () => {
           </div>
           <div className="mt-[3rem] w-full flex justify-center items-center mb-[3rem] flex-wrap gap-2 ">
             <span
-              className={`cursor-pointer border border-black py-2 px-2 hover:bg-blue-500 duration-200 ${
+              className={`cursor-pointer border border-black py-2 px-2 hover:bg-blue-500 hover:text-white duration-200 ${
                 page == 1 ? "hidden" : ""
               }`}
               onClick={() => handlePageChange(page - 1)}
@@ -120,7 +120,7 @@ const Products = () => {
               </span>
             ))}
             <span
-              className={`cursor-pointer border border-black py-2 px-2  hover:bg-blue-500 duration-200 ${
+              className={`cursor-pointer border border-black py-2 px-2  hover:bg-blue-500 hover:text-white duration-200 ${
                 page == datashow.length / 10 ? "hidden" : ""
               }`}
               onClick={() => handlePageChange(page + 1)}
