@@ -204,7 +204,7 @@ const Cart = () => {
               );
             })}
           </ul>
-          <div className="flex justify-end items-end mt-4 flex-col">
+          <div className="flex justify-end items-end mt-4 flex-col px-5 md:px-0">
             <div className="text-center">
               <h1 className="text-md  font-semibold mb-4">
                 Total Price: $ {totalItemPrice}{" "}
