@@ -51,7 +51,7 @@ const Banner = () => {
               className="md:text-[3rem] text-[2rem] text-red-500 text-center h-[100px] md:h-full p-3 opacity-90"
               repeat={Infinity}
             />
-            <p className="py-4 text-center md:text-sm opacity-80 text-lg px-2">
+            <p className="py-4 text-center md:text-sm opacity-80 text-lg px-6 md:px-2">
               Introducing our new online app your gateway to seamless
               convenience!
             </p>
