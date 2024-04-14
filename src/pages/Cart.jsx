@@ -161,7 +161,7 @@ const Cart = () => {
                         </button>
                       </div>
                       <span className="font-semibold ">
-                        $ {totalPrice(item?.price, item.id)}
+                      ₹{totalPrice(item?.price, item.id)}
                       </span>
                       <button
                         className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out font-semibold"
@@ -207,7 +207,7 @@ const Cart = () => {
           <div className="flex justify-end items-end mt-4 flex-col px-5 md:px-0">
             <div className="text-center">
               <h1 className="text-md  font-semibold mb-4">
-                Total Price: $ {totalItemPrice}{" "}
+                Total Price:  ₹{totalItemPrice}{" "}
               </h1>
               <button
                 className="py-2 px-2 bg-green-500 rounded-md text-[1rem] font-semibold mb-5 hover:bg-green-700 duration-200 ease-in-out"

@@ -108,13 +108,13 @@ const Cartdetails = () => {
                     />
                   </p>
                   <p className=" px-6 py-3 text-sm opacity-90 font-semibold">
-                    Discount :<s className="px-2"> {data.discountPercentage}</s>
+                    Discount :<s className="pl-2"> {data.discountPercentage}</s> % OFF
                   </p>
                 </div>
               </div>
               <div className="md:text-center ">
                 <p className="text-black font-semibold text-lg md:mb-5 px-6 mt-2   tracking-widest">
-                  Price - ${data?.price}
+                  Price - ₹{data?.price}
                 </p>
                 <button
                   className={`px-2 py-2 rounded-md opacity-90 duration-150 hover:opacity-100 mt-4 md:mt-0 ml-5 md:ml-0 ${

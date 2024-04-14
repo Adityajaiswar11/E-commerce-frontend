@@ -60,7 +60,7 @@ const ProductCard = ({ data }) => {
             {" "}
             {data?.title}
           </p>
-          <p className=" text-[14px] opacity-80 font-semibold line-clamp-2">
+          <p className=" text-[14px] pl-2 opacity-80 font-semibold line-clamp-2">
             {" "}
             {data?.description}
           </p>
@@ -78,11 +78,11 @@ const ProductCard = ({ data }) => {
     activeColor={"#ffd700"}
     classNames="py-1"
   />
-  <p className="py-2">Discount : <s>{data?.discountPercentage}</s>%</p>
+  <p className="py-2">Discount : <s>{data?.discountPercentage}</s>% Off</p>
           </p>
      
           <div className="flex justify-between items-center ">
-            <h1 className="p-2 font-bold opacity-90">Price: ${data?.price}</h1>
+            <h1 className="p-2 font-bold opacity-90">Price: ₹{data?.price}</h1>
 
             <div>
               <button
