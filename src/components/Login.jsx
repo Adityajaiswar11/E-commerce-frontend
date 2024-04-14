@@ -3,12 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/Images/bg-5.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../utils/Constant";
+
 const Login = () => {
   const apiURl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { setUserLog, setUser } = useContext(Context);
+  const [loader,setLoader] = useState(false)
+
+  // Function for handle login user
   const formSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,19 +22,21 @@ const Login = () => {
     };
     const { email } = userData;
     const { password } = userData;
-
+    if(!email || !password){
+      return toast.error("All fields are required!");
+    }
     try {
+      setLoader(true)
       const res = await axios.post(`${apiURl}/login`, {
         email,
         password,
       });
       if (res.status == 200) {
-        console.log(res.data);
-
         toast.success("Login successfully");
         navigate("/");
         setUserLog(true);
         setUser(res?.data);
+        setLoader(false)
       } else {
         toast.error("Login failed");
         setUserLog(false);
@@ -39,6 +45,7 @@ const Login = () => {
       toast.error(e.response.data, {
         position: "top-center",
       });
+      setLoader(false)
     }
   };
 
@@ -61,7 +68,7 @@ const Login = () => {
                 placeholder="Enter your password"
               />
             </div>
-            <button className="sign">Sign in</button>
+            <button className="sign">{loader ? "Signing...":'Login'}</button>
           </form>
           <div className="social-message">
             <div className="line"></div>
@@ -74,7 +81,7 @@ const Login = () => {
               to="/signup"
               className="text-[14px] underline p-1 mt-1 text-blue-600"
             >
-              Sign In
+              Sign Up
             </Link>
           </p>
         </div>

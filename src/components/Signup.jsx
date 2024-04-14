@@ -11,6 +11,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loader, setLoader] = useState(false);
   const apiURl = import.meta.env.VITE_API_URL;
 
   const { setUserLog } = useContext(Context);
@@ -18,6 +19,7 @@ const Signup = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
+      setLoader(true);
       const data = await axios.post(`${apiURl}/signup`, {
         name,
         email,
@@ -33,12 +35,14 @@ const Signup = () => {
       } else {
         toast.error("Registration failed");
         setUserLog(false);
+        setLoader(false);
       }
       // Redirecting the user after sign up
     } catch (err) {
       toast.error(err.response.data, {
         position: "bottom-right",
       });
+      setLoader(false);
     }
   };
 
@@ -102,7 +106,7 @@ const Signup = () => {
               className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
               type="submit"
             >
-              Register
+              {loader ? "Please wait..." : " Register"}
             </button>
           </div>
         </div>
