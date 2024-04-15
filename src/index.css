@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  scroll-behavior: smooth;
+}
 body,
 html {
   scroll-behavior: smooth;
-  /* background-color: #0e0e22;
-  color: #fff; */
   overflow-x: hidden;
+
 }
 
 ul hr {
