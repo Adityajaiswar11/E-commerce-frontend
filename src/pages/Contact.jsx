@@ -2,11 +2,54 @@
 
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect } from "react";
+import emailjs from "@emailjs/browser";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+  const form = useRef();
+  const [loader, setLoader] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !e.target.name.value ||
+      !e.target.email.value ||
+      !e.target.message.value ||
+      !e.target.number.value ||
+      !e.target.company.value
+    ) {
+      return toast.error("All fields must be provided!", {
+        position: "top-center",
+        autoClose: 1000,
+      });
+    }
+    setLoader(true);
+    emailjs
+      .sendForm("service_krq2fsc", "template_k0uhh5c", form.current, {
+        publicKey: "LYWwOwhKu_czBnJxD",
+      })
+      .then(
+        () => {
+          toast.success("Form submitted! Thanks! ", {
+            autoClose: 2000,
+            position: "top-center",
+          });
+          setLoader(false);
+          e.target.reset();
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          toast.error("Something went wrong..", {
+            autoClose: 2000,
+            position: "top-center",
+          });
+        }
+      );
+  };
 
   return (
     <div className="contact-1 py-4 md:py-12 mt-[4rem] border-t">
@@ -33,12 +76,17 @@ const Contact = () => {
 
             <div className="md:flex md:-mx-4 mt-4 md:mt-10">
               <div className="md:w-2/3 md:px-4">
-                <div className="contact-form">
+                <form
+                  className="contact-form"
+                  onSubmit={handleSubmit}
+                  ref={form}
+                >
                   <div className="sm:flex sm:flex-wrap -mx-3">
                     <div className="sm:w-1/2 px-3 mb-6">
                       <input
                         type="text"
                         placeholder="Full Name"
+                        name="name"
                         className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent outline-none text-black/70 font-semibold "
                       />
                     </div>
@@ -46,21 +94,24 @@ const Contact = () => {
                       <input
                         type="text"
                         placeholder="Company Name"
-                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent"
+                        name="company"
+                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent text-black/70 font-semibold"
                       />
                     </div>
                     <div className="sm:w-1/2 px-3 mb-6">
                       <input
-                        type="text"
+                        type="email"
+                        name="email"
                         placeholder="E-mail address"
-                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent"
+                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent text-black/70 font-semibold"
                       />
                     </div>
                     <div className="sm:w-1/2 px-3 mb-6">
                       <input
-                        type="text"
+                        type="number"
+                        name="number"
                         placeholder="Phone Number"
-                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent"
+                        className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent text-black/70 font-semibold"
                       />
                     </div>
                     <div className="sm:w-full px-3">
@@ -70,17 +121,17 @@ const Contact = () => {
                         cols="30"
                         rows="4"
                         placeholder="Your message here"
-                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400"
+                        className="border-2 rounded px-3 py-1 w-full focus:border-indigo-400 text-black/70 font-semibold"
                       ></textarea>
                     </div>
                   </div>
                   <div className="text-right mt-4 md:mt-12">
                     <button className="border-2 border-indigo-600 rounded px-6 py-2 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors duration-300">
-                      Send a Message
+                      {loader ? "Please Wait..." : " Send a Message"}
                       <i className="fas fa-chevron-right ml-2 text-sm"></i>
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
 
               <div className="md:w-1/3 md:px-4 mt-10 md:mt-0">
