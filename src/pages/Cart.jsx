@@ -180,8 +180,8 @@ const Cart = () => {
                   </li>
 
                   {close && (
-                    <div className="w-[350px] h-[200px] rounded-md bg-gray-800 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
-                      <div className="text-white/50 font-semibold">
+                    <div className="w-[350px] h-[200px] rounded-md bg-gray-100 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 shadow-sm shadow-black/60">
+                      <div className="text-black font-semibold">
                         <h1 className="mb-[5rem] text-center mt-3 text-[16px]">
                           Do want to remove this item from cart?
                           <br />
