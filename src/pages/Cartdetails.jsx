@@ -17,6 +17,10 @@ const Cartdetails = () => {
   const [isAdded, setIsAdded] = useState(false);
 
   const params = useParams();
+  
+  useEffect(()=>{
+   window.scrollTo(0,0)
+  },[])
 
   useEffect(() => {
     setLoader(true);

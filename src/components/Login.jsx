@@ -23,7 +23,9 @@ const Login = () => {
     const { email } = userData;
     const { password } = userData;
     if(!email || !password){
-      return toast.error("All fields are required!");
+      return toast.error("All fields are required!",{
+        autoClose: 2000,
+      });
     }
     try {
       setLoader(true)
@@ -32,7 +34,9 @@ const Login = () => {
         password,
       });
       if (res.status == 200) {
-        toast.success("Login successfully");
+        toast.success("Login successfully",{
+          autoClose: 2000,
+        });
         navigate("/");
         setUserLog(true);
         setUser(res?.data);
@@ -44,6 +48,7 @@ const Login = () => {
     } catch (e) {
       toast.error(e.response.data, {
         position: "top-center",
+        autoClose: 2000,
       });
       setLoader(false)
     }

@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Product from "./components/Products";
 import Home from "./pages/Home";
@@ -12,7 +12,14 @@ import { ToastContainer } from "react-toastify";
 import { AppContext } from "./utils/Constant";
 import Footer from "./components/Footer";
 
+
+
+
+
 const App = () => {
+
+ 
+
   return (
     <>
       <BrowserRouter>

@@ -37,9 +37,9 @@ const Banner = () => {
           <div className="md:w-1/2 w-full flex justify-center flex-col items-center mt-7 md:mt-0">
             <TypeAnimation
               sequence={[
-                "Welcome to the EazyShop app",
+                "Welcome to the EazyShop Web Application",
                 2000,
-                "ONLINE SHOPPING APP",
+                "ONLINE SHOPPING Web Application",
                 1000,
                 "BUY NOW",
 
@@ -62,7 +62,7 @@ const Banner = () => {
                 to="/signup"
                 className="bg-red-500 py-2 px-3 rounded-md text-white border hover:shadow-md shadow-white/70 duration-100"
               >
-                Sign In
+                Get Started
               </Link>
             </div>
           </div>

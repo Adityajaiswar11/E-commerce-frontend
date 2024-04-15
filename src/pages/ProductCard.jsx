@@ -36,9 +36,13 @@ const ProductCard = ({ data }) => {
     setCart(addCart);
     setIsAdded(true);
     if (_id) {
-      toast.success("Item added successfully");
+      toast.success("Item added successfully",{
+        autoClose: 1000,
+      });
     } else {
-      toast.error("something went wrong");
+      toast.error("something went wrong",{
+        autoClose: 1000,
+      });
     }
   };
 
