@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/Images/bg-5.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
 
 const Login = () => {
@@ -12,6 +12,9 @@ const Login = () => {
   const { setUserLog, setUser } = useContext(Context);
   const [loader,setLoader] = useState(false)
 
+  useEffect(()=>{
+    window.scrollTo(0,0)
+   },[])
   // Function for handle login user
   const formSubmit = async (e) => {
     e.preventDefault();
