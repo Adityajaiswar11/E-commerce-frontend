@@ -24,7 +24,7 @@ export const AppContext = (props) => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get("https://dummyjson.com/products?limit=52");
+        const res = await axios.get("https://dummyjson.com/products?limit=100");
         setProduct(res.data.products);
       } catch (err) {
         console.log(err);

@@ -17,7 +17,7 @@ const Cartdetails = () => {
   const [isAdded, setIsAdded] = useState(false);
 
   const params = useParams();
-  
+
   useEffect(()=>{
    window.scrollTo(0,0)
   },[])
@@ -53,7 +53,9 @@ const Cartdetails = () => {
     _cart.totalitem += 1;
     setCart(_cart);
     if (params.id) {
-      toast.success("Item added successfully");
+      toast.success("Item added successfully",{
+        autoClose:1000
+      });
     } else {
       toast.error("something went wrong");
     }

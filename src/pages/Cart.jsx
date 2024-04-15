@@ -14,6 +14,10 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (!cart.item) {
       return;
     }
@@ -29,7 +33,6 @@ const Cart = () => {
   const removeItem = () => {
     const addCart = { ...cart }; //{item:{}}
     let remove = cart.item[deleteid];
-    console.log(remove);
     delete cart.item[deleteid];
     addCart.totalitem -= remove;
 
@@ -77,20 +80,22 @@ const Cart = () => {
     if (userLog) {
       toast.success("You have ordered successfully. Thank you!", {
         position: "top-center",
+        autoClose: 2000,
       });
       setCart({ item: {}, totalitem: 0 });
       setTimeout(() => {
         navigate("/", { replace: true });
-      }, 5000);
-    } else {
-      toast.error("Please Log in first");
-      setTimeout(() => {
-        navigate("/signup");
       }, 3000);
+    } else {
+      toast.error("Please Log in first", {
+        autoClose: 1000,
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     }
   };
 
-  console.log(filterdata);
   return (
     <>
       {filterdata.length == 0 ? (
@@ -161,7 +166,7 @@ const Cart = () => {
                         </button>
                       </div>
                       <span className="font-semibold ">
-                      ₹{totalPrice(item?.price, item.id)}
+                        ₹{totalPrice(item?.price, item.id)}
                       </span>
                       <button
                         className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out font-semibold"
@@ -175,9 +180,9 @@ const Cart = () => {
                   </li>
 
                   {close && (
-                    <div className="w-[400px] h-[220px] rounded-md bg-gray-800 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
+                    <div className="w-[350px] h-[200px] rounded-md bg-gray-800 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 border border-white/75">
                       <div className="text-white/50 font-semibold">
-                        <h1 className="mb-[5rem] text-center mt-3 text-[20px]">
+                        <h1 className="mb-[5rem] text-center mt-3 text-[16px]">
                           Do want to remove this item from cart?
                           <br />
                           <span>Are you sure ?</span>
@@ -207,7 +212,7 @@ const Cart = () => {
           <div className="flex justify-end items-end mt-4 flex-col px-5 md:px-0">
             <div className="text-center">
               <h1 className="text-md  font-semibold mb-4">
-                Total Price:  ₹{totalItemPrice}{" "}
+                Total Price: ₹{totalItemPrice}{" "}
               </h1>
               <button
                 className="py-2 px-2 bg-green-500 rounded-md text-[1rem] font-semibold mb-5 hover:bg-green-700 duration-200 ease-in-out"
