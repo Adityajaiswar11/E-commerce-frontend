@@ -30,12 +30,12 @@ const Signup = () => {
       setPassword("");
       setName("");
       if (data.status == 200) {
-        toast.success("Registration successfully registered",{
+        toast.success("Registration successfully registered", {
           autoClose: 1000,
         });
         navigate("/login", { replace: true });
       } else {
-        toast.error("Registration failed",{
+        toast.error("Registration failed", {
           autoClose: 1000,
         });
         setUserLog(false);
@@ -46,7 +46,6 @@ const Signup = () => {
       toast.error(err.response.data, {
         position: "bottom-right",
         autoClose: 1000,
-        
       });
       setLoader(false);
     }

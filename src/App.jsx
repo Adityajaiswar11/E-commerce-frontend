@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import { ToastContainer } from "react-toastify";
 import { AppContext } from "./utils/Constant";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./protected/ProtectedRoute";
 
 
 
@@ -33,8 +34,13 @@ const App = () => {
 
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="product/:id" element={<Cartdetails />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/login" element={<ProtectedRoute> 
+              <Login/>
+            </ProtectedRoute>}></Route>
+            <Route path="/signup" element={<ProtectedRoute> 
+              <Signup/>
+            </ProtectedRoute>}></Route>
+            
             <Route path="/cart" element={<Cart />}></Route>
           </Routes>
           <Footer />
