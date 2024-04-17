@@ -109,7 +109,7 @@ const Navbar = () => {
       </div>
 
       {modal && userLog && (
-        <div className="fixed top-[5rem] right-20 w-72 h-46 shadow-sm shadow-black bg-gray-100 rounded-md z-50 text-black">
+        <div className="fixed top-[5rem] md:right-20 right-3 w-72 h-46 shadow-sm shadow-black bg-gray-100 rounded-md z-50 text-black">
           <FaUserCircle className="text-[3rem] mx-auto mt-5 text-black/60" />
           <h1 className="text-center uppercase pt-1 font-semibold text-sm">
             {user?.name}
@@ -129,7 +129,7 @@ const Navbar = () => {
             </p>
 
             <button
-                  className="text-sm font-semibold  bg-blue-500 py-2 px-2 rounded-md text-white  hover:bg-blue-700 text-center w-full block mt-4 mb-1"
+                  className="text-[10px] md:text-sm font-semibold  bg-blue-500 py-2 px-2 rounded-md text-white  hover:bg-blue-700 text-center w-full block mt-4 mb-1"
                   onClick={userhandle}
                 >
                   Logout
