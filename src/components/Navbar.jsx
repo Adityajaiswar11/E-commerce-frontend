@@ -69,7 +69,7 @@ const Navbar = () => {
                 <FaUser />
               </button>
             )}
-            <h1 className="uppercase text-md font-semibold select-none"> {user?.name}</h1>
+            <h1 className="text-[10px] uppercase md:text-md font-semibold select-none"> {user?.name}</h1>
             {!userLog ? (
               <>
                 <Link to="login">
@@ -129,7 +129,7 @@ const Navbar = () => {
             </p>
 
             <button
-                  className="text-[10px] md:text-sm font-semibold  bg-blue-500 py-2 px-2 rounded-md text-white  hover:bg-blue-700 text-center w-full block mt-4 mb-1"
+                  className="text-sm font-semibold  bg-blue-500 py-2 px-2 rounded-md text-white  hover:bg-blue-700 text-center w-full block mt-4 mb-1"
                   onClick={userhandle}
                 >
                   Logout
