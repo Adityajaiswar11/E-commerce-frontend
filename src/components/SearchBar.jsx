@@ -10,7 +10,7 @@ export const Searchbar = () => {
             try {
               const res = await fetch("https://dummyjson.com/products/categories");
               const data = await res.json();
-              console.log(data);
+              console.log("data received", data);
               setCategory(data);
             } catch (error) {
               console.log(error);
@@ -53,7 +53,7 @@ export const Searchbar = () => {
               <option hidden>Select Product Categary</option>
               <option value=" ">All Products</option>
               {category.map((cate)=>(
-                    <option value={cate} key={cate} className="cursor-pointer  font-semibold">{cate}</option>
+                    <option value={cate} key={cate} className="cursor-pointer  font-semibold">{cate?.slug}</option>
               ))}
             </select>
           </div>
