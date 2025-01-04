@@ -18,39 +18,40 @@ const Signup = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+  
     try {
       setLoader(true);
-      const data = await axios.post(`${apiURl}/signup`, {
+  
+      // Send signup request
+      const response = await axios.post(`${apiURl}/signup`, {
         name,
         email,
         password,
       });
-
+  
+      // Clear input fields
+      setName("");
       setEmail("");
       setPassword("");
-      setName("");
-      if (data.status == 200) {
-        toast.success("Registration successfully registered", {
-          autoClose: 1000,
-        });
-        navigate("/login", { replace: true });
+  
+      if (response.status === 201) { // Adjusted for correct success status
+        toast.success("Registration successful!", { autoClose: 1000 });
+        navigate("/login", { replace: true }); // Redirect to login
       } else {
-        toast.error("Registration failed", {
-          autoClose: 1000,
-        });
-        setUserLog(false);
-        setLoader(false);
+        toast.error("Registration failed. Please try again.", { autoClose: 1000 });
       }
-      // Redirecting the user after sign up
     } catch (err) {
-      toast.error(err.response.data, {
+      // Show server error or default message
+      const errorMessage = err.response?.data?.message || "An unexpected error occurred.";
+      toast.error(errorMessage, {
         position: "bottom-right",
         autoClose: 1000,
       });
-      setLoader(false);
+    } finally {
+      setLoader(false); // Ensure loader stops regardless of outcome
     }
   };
-
+  
   return (
     <div className="flex md:flex-row md:justify-evenly items-center z-10  md:mt-10 p-10 justify-center  flex-col mt-14 bg-slate-900">
       <div className="">

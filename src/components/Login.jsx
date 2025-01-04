@@ -15,47 +15,45 @@ const Login = () => {
   useEffect(()=>{
     window.scrollTo(0,0)
    },[])
-  // Function for handle login user
-  const formSubmit = async (e) => {
-    e.preventDefault();
+// Function for handling user login
+const formSubmit = async (e) => {
+  e.preventDefault();
 
-    const userData = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
-    const { email } = userData;
-    const { password } = userData;
-    if(!email || !password){
-      return toast.error("All fields are required!",{
-        autoClose: 2000,
-      });
+  // Extracting form data
+  const email = e.target.email.value.trim();
+  const password = e.target.password.value.trim();
+
+  // Validate input fields
+  if (!email || !password) {
+    return toast.error("All fields are required!", { autoClose: 2000 });
+  }
+
+  try {
+    setLoader(true);
+
+    // API call to login
+    const response = await axios.post(`${apiURl}/login`, { email, password });
+
+    if (response.status === 200) {
+      // Successful login actions
+      toast.success("Login successfully!", { autoClose: 2000 });
+      navigate("/");
+      setUserLog(true);
+      setUser(response.data); // Assuming response.data contains user data
+    } else {
+      // Handling unexpected responses
+      toast.error("Login failed. Please try again.", { autoClose: 2000 });
+      setUserLog(false);
     }
-    try {
-      setLoader(true)
-      const res = await axios.post(`${apiURl}/login`, {
-        email,
-        password,
-      });
-      if (res.status == 200) {
-        toast.success("Login successfully",{
-          autoClose: 2000,
-        });
-        navigate("/");
-        setUserLog(true);
-        setUser(res?.data);
-        setLoader(false)
-      } else {
-        toast.error("Login failed");
-        setUserLog(false);
-      }
-    } catch (e) {
-      toast.error(e.response.data, {
-        position: "top-center",
-        autoClose: 2000,
-      });
-      setLoader(false)
-    }
-  };
+  } catch (error) {
+    // Handle errors
+    const errorMessage = error.response?.data?.message || error.message || "An error occurred!";
+    toast.error(errorMessage, { position: "top-center", autoClose: 2000 });
+    console.error("Login Error:", error);
+  } finally {
+    setLoader(false);
+  }
+};
 
   return (
     <div className="bg-slate-900 w-full">
