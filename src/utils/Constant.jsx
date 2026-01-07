@@ -31,7 +31,7 @@ export const AppContext = (props) => {
       }
     };
 
-    getProduct();
+    // getProduct();
   }, []);
 
   //storing cart items in local storage

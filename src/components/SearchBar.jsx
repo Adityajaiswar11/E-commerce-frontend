@@ -1,16 +1,16 @@
-import { useContext, useEffect } from "react";
-import { Context } from "../utils/Constant";
-import { useState } from "react";
-export const Searchbar = () => {
-   const {setSearch} = useContext( Context)
+import { useState, useEffect } from "react";
+export const Searchbar = ({ setSearchQuery }) => {
    const [category,setCategory] = useState([]);
+
+  const handleOptinChange = (e) => {
+    setSearchQuery(e.target.value)
+  }
 
    useEffect(() => {
           const category = async () => {
             try {
               const res = await fetch("https://dummyjson.com/products/categories");
               const data = await res.json();
-              console.log("data received", data);
               setCategory(data);
             } catch (error) {
               console.log(error);
@@ -32,7 +32,7 @@ export const Searchbar = () => {
            <input
           
           type="text"
-          onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                onChange={handleOptinChange}
           placeholder="Search a product"
           className="w-full outline-none  text-sm  bg-transparent text-black font-semibold focus:border-indigo-400 "
           
@@ -48,12 +48,12 @@ export const Searchbar = () => {
             </h1>
             <select
               className="md:w-[300px] w-full border border-gray-300 py-2 px-2 rounded-sm cursor-pointer first-letter:capitalize"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleOptinChange}
             >
               <option hidden>Select Product Categary</option>
-              <option value=" ">All Products</option>
-              {category.map((cate)=>(
-                    <option value={cate} key={cate} className="cursor-pointer  font-semibold">{cate?.slug}</option>
+              <option value={''}>All Products</option>
+              {category.map((cate, i) => (
+                <option value={cate.slug} key={i} className="cursor-pointer  font-semibold">{cate?.name}</option>
               ))}
             </select>
           </div>
