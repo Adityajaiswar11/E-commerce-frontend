@@ -53,7 +53,7 @@ export const Searchbar = () => {
               <option hidden>Select Product Categary</option>
               <option value=" ">All Products</option>
               {category.map((cate)=>(
-                    <option value={cate} key={cate} className="cursor-pointer  font-semibold">{cate?.slug}</option>
+                <option value={cate?.slug} key={cate?.slug} className="cursor-pointer  font-semibold">{cate?.slug}</option>
               ))}
             </select>
           </div>

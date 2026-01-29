@@ -7,7 +7,12 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const Contact = () => {
+  const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAIL_SECRET_KEY;
+
   useEffect(() => {
+    console.log(serviceId, templateId, publicKey);
     window.scroll(0, 0);
   }, []);
   const form = useRef();
@@ -20,7 +25,7 @@ const Contact = () => {
       !e.target.email.value ||
       !e.target.message.value ||
       !e.target.number.value ||
-      !e.target.company.value
+      !e.target.surname.value
     ) {
       return toast.error("All fields must be provided!", {
         position: "top-center",
@@ -28,9 +33,8 @@ const Contact = () => {
       });
     }
     setLoader(true);
-    emailjs
-      .sendForm("service_krq2fsc", "template_k0uhh5c", form.current, {
-        publicKey: "LYWwOwhKu_czBnJxD",
+    emailjs.sendForm(serviceId, templateId, form.current, {
+        publicKey: publicKey,
       })
       .then(
         () => {
@@ -42,7 +46,7 @@ const Contact = () => {
           e.target.reset();
         },
         (error) => {
-          console.log("FAILED...", error.text);
+          console.log("FAILED...", error);
           toast.error("Something went wrong..", {
             autoClose: 2000,
             position: "top-center",
@@ -85,7 +89,7 @@ const Contact = () => {
                     <div className="sm:w-1/2 px-3 mb-6">
                       <input
                         type="text"
-                        placeholder="Full Name"
+                        placeholder="Your Name"
                         name="name"
                         className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent outline-none text-black/70 font-semibold "
                       />
@@ -93,8 +97,8 @@ const Contact = () => {
                     <div className="sm:w-1/2 px-3 mb-6">
                       <input
                         type="text"
-                        placeholder="Company Name"
-                        name="company"
+                        placeholder="Your Lastname"
+                        name="surname"
                         className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent text-black/70 font-semibold"
                       />
                     </div>
@@ -102,7 +106,7 @@ const Contact = () => {
                       <input
                         type="email"
                         name="email"
-                        placeholder="E-mail address"
+                        placeholder="Your Email"
                         className="border-1 rounded px-3 py-2 w-full focus:border-indigo-400 bg-transparent text-black/70 font-semibold"
                       />
                     </div>
