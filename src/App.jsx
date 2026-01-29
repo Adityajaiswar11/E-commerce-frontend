@@ -12,7 +12,6 @@ import { ToastContainer } from "react-toastify";
 import { AppContext } from "./utils/Constant";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./protected/ProtectedRoute";
-import { CartProvider } from "./context/CartContext";
 
 
 
@@ -25,7 +24,6 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <CartProvider>
         <AppContext>
           <ToastContainer />
           <Navbar />
@@ -47,7 +45,6 @@ const App = () => {
           </Routes>
           <Footer />
         </AppContext>
-        </CartProvider>
       </BrowserRouter>
     </>
   );
