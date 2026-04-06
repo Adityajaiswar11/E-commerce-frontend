@@ -64,7 +64,7 @@ const Slide = () => {
       </div>
 
       {/* Main Slider Container */}
-      <div className="relative w-full h-[40vh] md:h-[60vh] bg-dark-card border border-dark-border rounded-3xl overflow-hidden shadow-card group">
+      <div className="relative w-full h-[350px] md:h-[500px] bg-dark-card border border-dark-border rounded-3xl overflow-hidden shadow-card group">
 
         <AnimatePresence mode="wait">
           <motion.div
