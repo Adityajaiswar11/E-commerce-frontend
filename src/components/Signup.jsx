@@ -21,102 +21,119 @@ const Signup = () => {
   
     try {
       setLoader(true);
-  
-      // Send signup request
       const response = await axios.post(`${apiURl}/signup`, {
         name,
         email,
         password,
       });
   
-      // Clear input fields
       setName("");
       setEmail("");
       setPassword("");
   
-      if (response.status === 201) { // Adjusted for correct success status
+      if (response.status === 201) {
         toast.success("Registration successful!", { autoClose: 1000 });
-        navigate("/login", { replace: true }); // Redirect to login
+        navigate("/login", { replace: true });
       } else {
         toast.error("Registration failed. Please try again.", { autoClose: 1000 });
       }
     } catch (err) {
-      // Show server error or default message
       const errorMessage = err.response?.data?.message || "An unexpected error occurred.";
       toast.error(errorMessage, {
         position: "bottom-right",
         autoClose: 1000,
       });
     } finally {
-      setLoader(false); // Ensure loader stops regardless of outcome
+      setLoader(false); 
     }
   };
   
   return (
-    <div className="flex md:flex-row md:justify-evenly items-center z-10  md:mt-10 p-10 justify-center  flex-col mt-14 bg-slate-900">
-      <div className="">
-        <img
-          src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg"
-          alt=""
-          className="rounded-md"
-        />
-      </div>
+    <div className="min-h-screen bg-dark-bg w-full pt-24 pb-12 flex items-center justify-center px-4">
+      <div className="flex md:flex-row md:justify-evenly items-center w-full max-w-6xl mx-auto gap-10 flex-col">
+        
+        {/* Descriptive / Welcome Area */}
+        <div className="w-full max-w-md flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+              Join <span className="text-primary">EazyShop</span>
+            </h1>
+            <div className="h-16">
+              <TypeAnimation
+                sequence={["Discover premium products.", 2000, "Get the best deals today.", 2000, "Register to get started.", 2000]}
+                wrapper="span"
+                speed={50}
+                className="text-xl text-gray-400 font-medium"
+                repeat={Infinity}
+              />
+            </div>
+          </div>
+          <img
+            src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg"
+            alt="E-commerce illustration"
+            className="w-full max-w-xs rounded-2xl shadow-card opacity-80 hover:opacity-100 transition-opacity duration-300"
+          />
+        </div>
 
-      <form onSubmit={submitHandler} className="  p-5 mt-3">
-        <div className="w-80 rounded-2xl relative h-[450px]">
-          <div className="flex flex-col gap-1 ">
-            <TypeAnimation
-              sequence={["Welcome to EasyShop", 1000, "Please register here.."]}
-              wrapper="span"
-              speed={20}
-              cursor={false}
-              infinite={false}
-              className="text-center text-2xl text-red-600 mb-4 font-bold opacity-90"
-            />
-            <label className=" opacity-80 text-[#9ca3af]">Name</label>
-            <input
-              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
-              placeholder="Enter your full name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label className=" opacity-80 text-[#9ca3af]">Email</label>
-            <input
-              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
-              placeholder="Enter your email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label className=" opacity-80 text-[#9ca3af] ">Password</label>
-            <input
-              className="input-group focus:ring-1 focus:ring-white/70 focus:ring-offset-white/90"
-              placeholder="Enter password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <label className="flex cursor-pointer items-center justify-center p-1 text-slate-400 text-[14px]">
-              already have an acount?
-              <Link
-                to="/login"
-                className="text-[14px]opacity-90 underline p-1 text-blue-600 "
-              >
-                Login here
-              </Link>
-            </label>
+        {/* Form Container */}
+        <div className="w-full max-w-md bg-dark-card border border-dark-border p-8 rounded-2xl shadow-card order-1 md:order-2">
+          <h2 className="text-2xl font-display font-bold text-center text-white mb-6">Create an Account</h2>
+          
+          <form onSubmit={submitHandler} className="space-y-4">
+            <div>
+              <label className="premium-label">Full Name</label>
+              <input
+                className="premium-input"
+                placeholder="John Doe"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="premium-label">Email</label>
+              <input
+                className="premium-input"
+                placeholder="john@example.com"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="premium-label">Password</label>
+              <input
+                className="premium-input"
+                placeholder="Create a strong password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
             <button
-              className="inline-block cursor-pointer rounded-md bg-gray-700 px-4 py-3.5 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-700 focus-visible:ring-offset-2 active:scale-95"
+              className="premium-btn mt-6"
               type="submit"
+              disabled={loader}
             >
-              {loader ? "Please wait..." : " Register"}
+              {loader ? "Please wait..." : "Register Account"}
             </button>
-          </div>
+            
+            <p className="text-center text-gray-400 text-sm mt-6">
+              Already have an account?{" "}
+              <Link to="/login" className="text-primary hover:text-primary-hover font-medium underline transition-colors">
+                Login here
+              </Link>
+            </p>
+          </form>
         </div>
-      </form>
+        
+      </div>
     </div>
   );
 };

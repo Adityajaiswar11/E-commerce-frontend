@@ -3,10 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 
 const Cart = () => {
   let totalItemPrice = 0;
-  const { cart, product, setCart } = useContext(Context);
+  const { cart, product, setCart, userLog } = useContext(Context);
   const [close, setClose] = useState(false);
   const [deleteid, setDeleteit] = useState();
   const [filterdata, setFilterData] = useState([]);
@@ -18,24 +19,18 @@ const Cart = () => {
   }, []);
 
   useEffect(() => {
-    if (!cart.item) {
-      return;
-    }
+    if (!cart.item) return;
 
     const id = Object.keys(cart.item);
-
-    const total = product.filter((item) => {
-      return id.includes(item.id.toString());
-    });
+    const total = product.filter((item) => id.includes(item.id.toString()));
     setFilterData(total);
-  }, [cart]);
+  }, [cart, product]);
 
   const removeItem = () => {
-    const addCart = { ...cart }; //{item:{}}
+    const addCart = { ...cart };
     let remove = cart.item[deleteid];
     delete cart.item[deleteid];
     addCart.totalitem -= remove;
-
     setCart(addCart);
 
     const newData = filterdata.filter((d) => d.id !== deleteid);
@@ -43,188 +38,178 @@ const Cart = () => {
     setClose(false);
   };
 
-  const totalItem = (id) => {
-    return cart.item[id];
-  };
+  const totalItem = (id) => cart.item[id];
 
   const increamentCart = (id) => {
     let Qauntity = cart.item[id];
     let cartItem = { ...cart };
     cartItem.item[id] = Qauntity + 1;
     cartItem.totalitem += 1;
-
     setCart(cartItem);
   };
 
   const decreamentCart = (id) => {
     let Qauntity = cart.item[id];
     let cartItem = { ...cart };
-    if (cartItem.item[id] === 1) {
-      return;
-    }
+    if (cartItem.item[id] === 1) return;
     cartItem.item[id] = Qauntity - 1;
     cartItem.totalitem -= 1;
-
     setCart(cartItem);
   };
 
   const totalPrice = (price, id) => {
     let sum = totalItem(id) * price;
-    // console.log(sum)
     totalItemPrice += sum;
     return sum;
   };
 
-  const { userLog } = useContext(Context);
   const handleOrder = () => {
     if (userLog) {
-      toast.success("You have ordered successfully. Thank you!", {
-        position: "top-center",
-        autoClose: 2000,
-      });
-      setCart({ item: {}, totalitem: 0 });
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 3000);
+      navigate("/checkout");
     } else {
-      toast.error("Please Log in first", {
-        autoClose: 1000,
-      });
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      toast.error("Please Log in to proceed", { autoClose: 1000 });
+      setTimeout(() => navigate("/login"), 1000);
     }
   };
 
   return (
-    <>
-      {filterdata.length == 0 ? (
-        <div className="mt-[7rem] flex md:justify-evenly items-center flex-col md:flex-row justify-center">
-          <img
-            src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png"
-            alt=""
-          />
-          <div className="text-center h-full p-4">
-            <h1 className="md:text-[3rem] text-[1.4rem] opacity-90 text-red-600/80 font-semibold">
-              Your cart is empty !
-            </h1>
-            <p className="text-md opacity-80 text-white/50 pt-2 mb-[2rem]">
-              You have no items in your shopping cart.
-            </p>
-            <Link
-              to="/"
-              className="py-2 px-3 bg-red-500 rounded-md hover:bg-red-600 duration-150 font-semibold text-white"
-            >
-              Continue Shopping
-            </Link>
+    <div className="min-h-screen bg-dark-bg pt-24 pb-12 px-4 md:px-8 text-white relative">
+      {filterdata.length === 0 ? (
+        <div className="flex flex-col items-center justify-center mt-20">
+          <div className="w-64 h-64 bg-dark-card border border-dark-border rounded-full flex items-center justify-center mb-8">
+            <svg className="w-32 h-32 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
           </div>
+          <h1 className="text-3xl font-display font-bold mb-4">Your cart is empty</h1>
+          <p className="text-gray-400 mb-8 max-w-md text-center">Looks like you haven't added anything to your cart yet. Browse our products and find something you love!</p>
+          <Link to="/product" className="px-8 py-3 bg-primary hover:bg-primary-hover rounded-lg font-semibold shadow-glow transition-all">
+            Continue Shopping
+          </Link>
         </div>
       ) : (
-        <div className="md:mx-auto md:w-[80%] w-full  mt-[6rem] border-b-0 md:px-5 ">
-          <h1 className="px-2 text-xl font-semibold py-5">
-            Total Items : {filterdata.length}
-          </h1>
-          <div className="font-semibold mb-5 p-2 flex justify-between items-center ">
-            <h1 className="  text-md  text-black/80 font-bold w-[30%] pl-3 md:pl-0">
-              {" "}
-              Products{" "}
-            </h1>
-            <h1 className="  text-md  text-black/80 font-bold  ">Qauntity </h1>
-            <h1 className="  text-md  text-black/80 font-bold ">Price </h1>
-            <h1 className="  text-md  text-black/80 font-bold">Action </h1>
-          </div>
-          <ul className="mb-12 px-2">
-            {filterdata.map((item) => {
-              return (
-                <div key={item?.id} className="border w-full px-1">
-                  <li className={`${close ? "opacity-20 mb-5" : "mb-5"}`}>
-                    <div className="flex justify-between items-center">
-                      <div className="flex md:justify-start gap-[6px] items-center p-2 w-[30%] md:flex-row flex-col text-center md:text-left">
-                        <img
-                          src={item?.thumbnail}
-                          alt=""
-                          className="md:h-[8rem] md:w-[8rem]  h-10 w-10 rounded-md shadow-md "
-                        />
-                        <p className="text-[12px] md:text-[1rem] text-red-600 font-semibold">
-                          {item.title}
-                        </p>
+          <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+
+            {/* Cart Items Section */}
+            <div className="lg:w-2/3 h-fit bg-dark-card border border-dark-border rounded-2xl p-6 shadow-card overflow-hidden">
+              <div className="flex justify-between items-end border-b border-dark-border pb-4 mb-4">
+                <h1 className="text-2xl font-bold font-display">Shopping Cart</h1>
+                <p className="text-gray-400 text-sm">{filterdata.length} Items</p>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {filterdata.map((item) => (
+                  <div key={item?.id} className={`flex flex-col sm:flex-row gap-4 relative group p-2 rounded-xl transition-colors ${close ? 'opacity-30' : 'hover:bg-dark-hover'}`}>
+
+                    {/* Image */}
+                    <div className="w-24 h-24 bg-dark-bg rounded-xl p-2 flex-shrink-0">
+                      <img src={item?.thumbnail} alt={item.title} className="w-full h-full object-contain" />
+                    </div>
+
+                    {/* Details */}
+                    <div className="flex-1 flex flex-col justify-between py-1">
+                      <div>
+                        <h2 className="text-lg font-semibold line-clamp-1">{item.title}</h2>
+                        <p className="text-gray-400 text-sm">{item.category}</p>
                       </div>
 
-                      <div>
-                        <button
-                          className="px-3 py-1 rounded-md bg-slate-600 "
-                          onClick={() => decreamentCart(item.id)}
-                        >
-                          -
+                      <div className="font-bold text-primary mt-2">
+                        ₹{item.price}
+                      </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="flex sm:flex-col items-center justify-between sm:justify-center gap-4 sm:ml-4">
+                      <div className="flex items-center bg-dark-bg rounded-lg border border-dark-border">
+                        <button onClick={() => decreamentCart(item.id)} className="p-2 text-gray-400 hover:text-white transition-colors">
+                          <FaMinus size={12} />
                         </button>
-                        <b className="px-3 "> {totalItem(item.id)}</b>
-                        <button
-                          className="px-2 py-2 rounded-md leading-none bg-slate-600"
-                          onClick={() => increamentCart(item.id)}
-                        >
-                          +
+                        <span className="w-8 text-center font-semibold">{totalItem(item.id)}</span>
+                        <button onClick={() => increamentCart(item.id)} className="p-2 text-gray-400 hover:text-white transition-colors">
+                          <FaPlus size={12} />
                         </button>
                       </div>
-                      <span className="font-semibold ">
-                        ₹{totalPrice(item?.price, item.id)}
-                      </span>
-                      <button
-                        className="py-2 px-2 rounded-md bg-red-500 text-[14px] hover:bg-red-600 duration-200 ease-in-out font-semibold"
-                        onClick={() => {
-                          setClose(true), setDeleteit(item.id);
-                        }}
+
+                      <button 
+                        onClick={() => { setClose(true); setDeleteit(item.id); }}
+                        className="text-gray-500 hover:text-red-500 transition-colors p-2"
+                        title="Remove Item"
                       >
-                        Remove
+                        <FaTrash />
                       </button>
                     </div>
-                  </li>
 
-                  {close && (
-                    <div className="w-[350px] h-[200px] rounded-md bg-gray-100 fixed top-[10rem] left-0 z-10 right-0 mx-auto opacity-100 shadow-sm shadow-black/60">
-                      <div className="text-black font-semibold">
-                        <h1 className="mb-[5rem] text-center mt-3 text-[16px]">
-                          Do want to remove this item from cart?
-                          <br />
-                          <span>Are you sure ?</span>
-                        </h1>
-                      </div>
-
-                      <div className="flex justify-center gap-5 items-center p-2">
-                        <button
-                          className="py-2 px-5 bg-slate-600 rounded-md hover:bg-red-500 duration-200 font-semibold"
-                          onClick={() => removeItem()}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className="py-2 px-5 rounded-md bg-slate-600 hover:bg-green-500 duration-200 font-semibold"
-                          onClick={() => setClose(false)}
-                        >
-                          No
-                        </button>
-                      </div>
+                    <div className="hidden sm:block absolute right-4 bottom-4 font-bold text-lg">
+                      ₹{totalPrice(item?.price, item.id)}
                     </div>
-                  )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Order Summary Section */}
+            <div className="lg:w-1/3">
+              <div className="bg-dark-card border border-dark-border rounded-2xl p-6 shadow-card sticky top-24">
+                <h2 className="text-xl font-bold font-display border-b border-dark-border pb-4 mb-6">Order Summary</h2>
+
+                <div className="space-y-4 text-sm mb-6">
+                  <div className="flex justify-between text-gray-300">
+                    <span>Subtotal</span>
+                    <span>₹{totalItemPrice}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-300">
+                    <span>Shipping</span>
+                    <span>Free</span>
+                  </div>
+                  <div className="flex justify-between text-gray-300 border-b border-dark-border pb-4">
+                    <span>Tax estimate</span>
+                    <span>₹0</span>
+                  </div>
+                  <div className="flex justify-between text-white text-lg font-bold pt-2">
+                    <span>Total</span>
+                    <span>₹{totalItemPrice}</span>
+                  </div>
                 </div>
-              );
-            })}
-          </ul>
-          <div className="flex justify-end items-end mt-4 flex-col px-5 md:px-0">
-            <div className="text-center">
-              <h1 className="text-md  font-semibold mb-4">
-                Total Price: ₹{totalItemPrice}{" "}
-              </h1>
-              <button
-                className="py-2 px-2 bg-green-500 rounded-md text-[1rem] font-semibold mb-5 hover:bg-green-700 duration-200 ease-in-out"
-                onClick={handleOrder}
+
+                <button 
+                  onClick={handleOrder}
+                  className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3.5 rounded-xl shadow-glow transition-colors"
+                >
+                  Proceed to Checkout
+                </button>
+
+                <p className="text-xs text-center text-gray-500 mt-4">Safe and secure payments powered by PayU</p>
+              </div>
+            </div>
+
+          </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {close && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-dark-card border border-dark-border p-6 rounded-xl shadow-card w-full max-w-sm m-4 transform transition-all duration-300 scale-100">
+            <h3 className="text-xl font-bold text-white mb-2 text-center">Remove Item?</h3>
+            <p className="text-gray-400 text-center mb-6">Are you sure you want to remove this item from your cart?</p>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setClose(false)}
+                className="flex-1 py-2.5 rounded-lg border border-dark-border text-gray-300 hover:text-white hover:bg-dark-hover transition-colors font-semibold"
               >
-                Order Now{" "}
+                Cancel
+              </button>
+              <button 
+                onClick={removeItem}
+                className="flex-1 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors font-semibold shadow-[0_0_15px_rgba(220,38,38,0.4)]"
+              >
+                Remove
               </button>
             </div>
           </div>
         </div>
       )}
-    </>
+
+    </div>
   );
 };
 

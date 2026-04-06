@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { AppContext } from "./utils/Constant";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./protected/ProtectedRoute";
+import Checkout from "./pages/Checkout";
 
 
 
@@ -42,6 +43,7 @@ const App = () => {
             </ProtectedRoute>}></Route>
             
             <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/checkout" element={<Checkout />}></Route>
           </Routes>
           <Footer />
         </AppContext>

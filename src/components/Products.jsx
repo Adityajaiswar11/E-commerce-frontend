@@ -13,12 +13,10 @@ const Products = () => {
   const [loader, setLoader] = useState(false);
 
   const container = {
-    hidden: { opacity: 1, scale: 0 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      scale: 1,
       transition: {
-        delayChildren: 0.2,
         staggerChildren: 0.1,
       },
     },
@@ -42,6 +40,7 @@ const Products = () => {
         setLoader(false);
       } catch (error) {
         console.log(error);
+        setLoader(false);
       }
     };
     fetchData();
@@ -51,8 +50,7 @@ const Products = () => {
     const filtered = data.filter((item) => {
       if (!search) return true;
       return (
-        item.
-        title.toLowerCase().includes(search.toLowerCase()) ||
+        item.title.toLowerCase().includes(search.toLowerCase()) ||
         item.category.toLowerCase().includes(search.toLowerCase())
       );
     });
@@ -61,79 +59,107 @@ const Products = () => {
   }, [search, data]);
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(datashow.length / 10)) {
+    if (newPage >= 1 && newPage <= Math.ceil(datashow.length / 8)) {
       setPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
+  const totalPages = Math.ceil(datashow.length / 8);
+
   return (
-    <>
-      <div className="banner text-center flex justify-center items-center opacity-80 mt-[4rem]">
-        <h1 className="text-5xl mt-12 pb-24 text-center first-letter:text-red-600 font-semibold text-white">
-          Our Products
-        </h1>
-      </div>
-      <Searchbar />
-      {loader ? (
-        <Loader />
-      ) : (
-        <>
-          {datashow.length > 0 ? (
-            <>
-              <div id="product-container">
-                <motion.ul
-                  className="md:w-full lg:w-full h-full md:m-5 grid md:grid-cols-2 lg:grid-cols-5 grid-cols-1 mx-auto sm:grid-cols-2 relative container gap-5"
+    <div className="min-h-screen bg-dark-bg pt-20 pb-20 px-4 md:px-8">
+
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Discover <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Products</span>
+          </h1>
+          <p className="text-gray-400">Explore our wide range of premium items.</p>
+        </div>
+
+        <div className="mb-10">
+          <Searchbar />
+        </div>
+
+        {loader ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader />
+          </div>
+        ) : (
+          <>
+            {datashow.length > 0 ? (
+              <>
+                  <motion.div
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   variants={container}
                   initial="hidden"
                   animate="visible"
                 >
                   {datashow
-                    .slice(page * 10 - 10, page * 10)
-                    .map((data) => (
-                      <motion.li key={data.id} variants={item}>
-                        <ProductCard data={data} />
-                      </motion.li>
+                    .slice((page - 1) * 8, page * 8)
+                      .map((product) => (
+                        <motion.div key={product.id} variants={item}>
+                          <ProductCard data={product} />
+                        </motion.div>
                     ))}
-                </motion.ul>
+                  </motion.div>
+
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="flex justify-center items-center mt-16 gap-2 flex-wrap">
+                      <button
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${page === 1 ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
+                          }`}
+                        onClick={() => handlePageChange(page - 1)}
+                        disabled={page === 1}
+                      >
+                        Prev
+                      </button>
+
+                      {[...Array(totalPages)].map((_, i) => {
+                        const pageNum = i + 1;
+                        // Simple logic to show a few pages around current page
+                        if (pageNum === 1 || pageNum === totalPages || (pageNum >= page - 1 && pageNum <= page + 1)) {
+                          return (
+                            <button
+                              key={i}
+                              className={`w-10 h-10 flexItems-center justify-center rounded-lg font-semibold transition-all ${pageNum === page
+                                ? "bg-primary text-white shadow-glow border-none"
+                                : "bg-dark-card border border-dark-border text-gray-400 hover:text-white hover:border-gray-600"
+                                }`}
+                              onClick={() => handlePageChange(pageNum)}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        } else if (pageNum === page - 2 || pageNum === page + 2) {
+                          return <span key={i} className="text-gray-600">...</span>;
+                        }
+                        return null;
+                      })}
+
+                      <button
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${page === totalPages ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
+                          }`}
+                        onClick={() => handlePageChange(page + 1)}
+                        disabled={page === totalPages}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+              <div className="text-center py-20 bg-dark-card border border-dark-border rounded-xl">
+                <h1 className="text-2xl font-bold text-gray-400">No Products Found</h1>
+                <p className="text-gray-500 mt-2">Try adjusting your search criteria.</p>
               </div>
-              <div className="mt-[3rem] w-full flex justify-center items-center mb-[3rem] flex-wrap gap-2">
-                <span
-                  className={`cursor-pointer border border-black py-2 px-2 hover:bg-blue-500 hover:text-white duration-200 ${
-                    page === 1 ? "hidden" : ""
-                  }`}
-                  onClick={() => handlePageChange(page - 1)}
-                >
-                  Prev
-                </span>
-                {[...Array(Math.ceil(datashow.length / 10))].map((_, i) => (
-                  <span
-                    key={i}
-                    className={`border border-gray-300 px-2 py-2 rounded-md font-semibold cursor-pointer ${
-                      i + 1 === page ? "bg-blue-500 text-white" : ""
-                    }`}
-                    onClick={() => handlePageChange(i + 1)}
-                  >
-                    {i + 1}
-                  </span>
-                ))}
-                <span
-                  className={`cursor-pointer border border-black py-2 px-2 hover:bg-blue-500 hover:text-white duration-200 ${
-                    page === Math.ceil(datashow.length / 10) ? "hidden" : ""
-                  }`}
-                  onClick={() => handlePageChange(page + 1)}
-                >
-                  Next
-                </span>
-              </div>
-            </>
-          ) : (
-            <h1 className="text-center py-10 font-semibold text-2xl">
-              No Product found
-            </h1>
-          )}
-        </>
-      )}
-    </>
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -1,149 +1,110 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <>
-      <footer className="footer-1py-8 sm:py-12 border-t bg-black/50 bg-slate-600 text-white pb-2">
-        <div className="container mx-auto px-4">
-          <div className="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
-            <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
-              <h5 className="text-xl font-bold mb-6">Usefull Links</h5>
-              <ul className="list-none footer-links">
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href=""
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Product
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Contact
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Sign Up
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
-              <h5 className="text-xl font-bold mb-6">About</h5>
-              <ul className="list-none footer-links">
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Team
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Locations
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Privacy
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Terms
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
-              <h5 className="text-xl font-bold mb-6">Help</h5>
-              <ul className="list-none footer-links">
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Support
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Help Center
-                  </a>
-                </li>
-                <li className="mb-2">
-                  <a
-                    href="#"
-                    className="border-b border-solid border-transparent hover:border-blue-700 hover:text-blue-700"
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="px-4 mt-4 sm:w-1/3 xl:w-1/6 sm:mx-auto xl:mt-0 xl:ml-auto">
-              <h5 className="text-xl font-bold mb-6 sm:text-center xl:text-left">
-                Stay connected
-              </h5>
-              <div className="flex sm:justify-center xl:justify-start">
-                <a href="">
-                  <FaInstagram className="w-8 h-8 border border-gray-400 rounded-full text-center py-1 hover:text-white bg-red-600 hover:border-red-600" />
+    <footer className="bg-dark-bg border-t border-dark-border text-gray-400 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
+          
+          {/* Useful Links */}
+          <div className="col-span-1">
+            <h5 className="text-white text-lg font-display font-semibold mb-6">Useful Links</h5>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+              </li>
+              <li>
+                <Link to="/product" className="hover:text-primary transition-colors">Products</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
+              </li>
+              <li>
+                <Link to="/signup" className="hover:text-primary transition-colors">Sign Up</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* About */}
+          <div className="col-span-1">
+            <h5 className="text-white text-lg font-display font-semibold mb-6">About</h5>
+            <ul className="space-y-3">
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Team</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Locations</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Terms</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Help */}
+          <div className="col-span-1">
+            <h5 className="text-white text-lg font-display font-semibold mb-6">Help</h5>
+            <ul className="space-y-3">
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Support</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">Help Center</a>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Address & Social */}
+          <div className="col-span-1 sm:col-span-2 lg:col-span-2 md:pl-10 lg:border-l lg:border-dark-border">
+            <div className="mb-8">
+              <h5 className="text-white text-lg font-display font-semibold mb-4">Stay connected</h5>
+              <div className="flex gap-4">
+                <a href="#" className="w-10 h-10 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-colors">
+                  <FaInstagram size={18} />
                 </a>
-                <a href="">
-                  <FaLinkedinIn className="w-8 h-8 border border-gray-400 rounded-full text-center py-1 ml-2 text-gray-600 hover:text-white bg-blue-400 hover:border-blue-400"></FaLinkedinIn>
+                <a href="#" className="w-10 h-10 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-500 transition-colors">
+                  <FaLinkedinIn size={18} />
                 </a>
-                <a href="">
-                  <FaTwitter className="w-8 h-8 border  border-gray-400 rounded-full text-center py-1 ml-2 hover:text-white bg-blue-600 hover:border-blue-600" />
+                <a href="#" className="w-10 h-10 rounded-full bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
+                  <FaTwitter size={18} />
                 </a>
               </div>
             </div>
-            <div className="px-4 sm:w-1/2 md:w-1/4 mt-4 md:mt-0">
-              <h6 className="font-bold mb-2">Address</h6>
-              <address className="not-italic mb-4 text-sm opacity-80">
-                14th Road ,
-                <br />
-                India , Mumbai- 400051
+
+            <div className="mb-6">
+              <h6 className="text-white font-semibold mb-2">Address</h6>
+              <address className="not-italic text-sm text-gray-500 leading-relaxed">
+                14th Road, <br />
+                India, Mumbai - 400051
               </address>
             </div>
-            <div className="px-4 md:w-1/4 md:ml-auto mt-6 sm:mt-4 md:mt-0 mb-5">
-              <button className="px-4 py-2 bg-red-700 hover:bg-red-800 rounded text-white font-medium">
-                Get Started
-              </button>
-            </div>
+
+            <Link to="/signup" className="inline-block px-6 py-2.5 bg-primary hover:bg-primary-hover text-white text-sm font-semibold rounded-lg shadow-glow transition-all">
+              Get Started
+            </Link>
+          </div>
+
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="mt-16 pt-8 border-t border-dark-border text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center">
+          <p>&copy; {new Date().getFullYear()} EazyShop. All rights reserved.</p>
+          <div className="flex items-center gap-2 mt-4 md:mt-0">
+            <span>Powered by</span>
+            <div className="w-6 h-6 bg-primary/20 text-primary rounded flex items-center justify-center font-bold text-xs">E</div>
           </div>
         </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   );
 };
 
