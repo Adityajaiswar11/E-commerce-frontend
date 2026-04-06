@@ -91,14 +91,14 @@ const Banner = () => {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-6 -left-6 bg-dark-card border border-dark-border p-4 rounded-xl shadow-glow backdrop-blur-md flex items-center gap-4"
+              className="absolute bottom-2 left-2 md:-bottom-6 md:-left-6 bg-dark-card border border-dark-border p-3 md:p-4 rounded-xl shadow-glow backdrop-blur-md flex items-center gap-3 md:gap-4 z-20"
             >
-              <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xl font-bold">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary text-xl font-bold">
                 ★
               </div>
               <div>
-                <p className="text-white font-bold font-display text-lg leading-tight">4.9/5</p>
-                <p className="text-gray-400 text-xs">Customer Reviews</p>
+                <p className="text-white font-bold font-display text-base md:text-lg leading-tight">4.9/5</p>
+                <p className="text-gray-400 text-[10px] md:text-xs">Customer Reviews</p>
               </div>
             </motion.div>
 
@@ -106,10 +106,10 @@ const Banner = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 2 }}
-              className="absolute -top-6 -right-6 bg-dark-card border border-dark-border px-6 py-3 rounded-xl shadow-card backdrop-blur-md"
+              className="absolute top-2 right-2 md:-top-6 md:-right-6 bg-dark-card border border-dark-border px-4 py-2 md:px-6 md:py-3 rounded-xl shadow-card backdrop-blur-md z-20"
             >
-              <p className="text-primary font-bold font-display text-lg">Secure</p>
-              <p className="text-gray-400 text-xs">Fast Checkout</p>
+              <p className="text-primary font-bold font-display text-base md:text-lg">Secure</p>
+              <p className="text-gray-400 text-[10px] md:text-xs">Fast Checkout</p>
             </motion.div>
           </motion.div>
 
