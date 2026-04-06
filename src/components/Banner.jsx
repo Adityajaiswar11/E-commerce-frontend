@@ -30,7 +30,7 @@ const Banner = () => {
             New Arrivals Available Now
           </motion.div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 text-white tracking-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 text-white tracking-tight min-h-[120px] md:min-h-[160px] lg:min-h-[200px]">
             Elevate Your <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               <TypeAnimation
