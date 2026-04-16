@@ -4,6 +4,7 @@ import { Context } from "../utils/Constant";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
+import { usePayment } from "../features/payment/hooks/usePayment";
 
 const Cart = () => {
   let totalItemPrice = 0;
@@ -13,6 +14,7 @@ const Cart = () => {
   const [filterdata, setFilterData] = useState([]);
 
   const navigate = useNavigate();
+  const { startPayment, startUpiPayment, isMobile } = usePayment();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,12 +66,11 @@ const Cart = () => {
   };
 
   const handleOrder = () => {
-    if (userLog) {
-      navigate("/checkout");
-    } else {
-      toast.error("Please Log in to proceed", { autoClose: 1000 });
-      setTimeout(() => navigate("/login"), 1000);
-    }
+    startPayment(+totalItemPrice);
+  };
+
+  const handleUpiOrder = () => {
+    startUpiPayment(+totalItemPrice);
   };
 
   return (
@@ -178,7 +179,22 @@ const Cart = () => {
                   Proceed to Checkout
                 </button>
 
-                <p className="text-xs text-center text-gray-500 mt-4">Safe and secure payments powered by PayU</p>
+                {/* UPI Intent button — only shown on mobile */}
+                {isMobile && (
+                  <button
+                    onClick={handleUpiOrder}
+                    className="w-full mt-3 flex items-center justify-center gap-2 bg-[#5f259f] hover:bg-[#4d1e82] text-white font-semibold py-3.5 rounded-xl transition-colors"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/640px-UPI-Logo-vector.svg.png"
+                      alt="UPI"
+                      className="h-5 object-contain brightness-200"
+                    />
+                    Pay via UPI
+                  </button>
+                )}
+
+                <p className="text-xs text-center text-gray-500 mt-4">Safe and secure payments powered by Razorpay</p>
               </div>
             </div>
 

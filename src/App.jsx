@@ -13,6 +13,8 @@ import { AppContext } from "./utils/Constant";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
 
 
 
@@ -44,6 +46,8 @@ const App = () => {
             
             <Route path="/cart" element={<Cart />}></Route>
             <Route path="/checkout" element={<Checkout />}></Route>
+            <Route path="/payment-success" element={<PaymentSuccess />}></Route>
+            <Route path="/payment-failed" element={<PaymentFailed />}></Route>
           </Routes>
           <Footer />
         </AppContext>
