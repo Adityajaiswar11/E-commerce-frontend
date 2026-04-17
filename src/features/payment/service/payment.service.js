@@ -1,21 +1,12 @@
-const BASE_URL = "http://localhost:5000/api/payment";
-const AUTH_TOKEN = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWRmZjc2OGE5MjkzYTQ1YzVjYjYxOWUiLCJpYXQiOjE3NzYyODU1NjIsImV4cCI6MTc3Njg5MDM2Mn0.cGg49rL8m8KVZuCoMhJ-qAx0zaycz-fZB0N8jf9_sRE`;
-
-const authHeaders = {
-  "Content-Type": "application/json",
-  "Authorization": AUTH_TOKEN,
-};
+import { API_INSTANCE } from "../../../config/axios";
+import { ENDPOINTS } from "../../../config/endpoin.config";
 
 // ─── Standard Checkout ────────────────────────────────────────────────────────
 
 export const createOrder = async (amount) => {
   try {
-    const response = await fetch(`${BASE_URL}/create-order`, {
-      method: "POST",
-      headers: authHeaders,
-      body: JSON.stringify({ amount }),
-    });
-    return await response.json();
+    const response = await API_INSTANCE.post(ENDPOINTS.CREATE_ORDER, { amount });
+    return response.data;
   } catch (error) {
     console.error("createOrder error:", error);
   }
@@ -23,12 +14,8 @@ export const createOrder = async (amount) => {
 
 export const verifyPayment = async (paymentData) => {
   try {
-    const response = await fetch(`${BASE_URL}/verify`, {
-      method: "POST",
-      headers: authHeaders,
-      body: JSON.stringify(paymentData),
-    });
-    return await response.json();
+    const response = await API_INSTANCE.post(ENDPOINTS.VERIFY_PAYMENT, paymentData);
+    return response.data;
   } catch (error) {
     console.error("verifyPayment error:", error);
   }

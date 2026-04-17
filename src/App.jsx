@@ -17,13 +17,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 
 
-
-
-
 const App = () => {
-
- 
-
   return (
     <>
       <BrowserRouter>
@@ -34,7 +28,6 @@ const App = () => {
           <Routes>
             <Route path="/" exact element={<Home />}></Route>
             <Route path="/product" element={<Product />}></Route>
-
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="product/:id" element={<Cartdetails />}></Route>
             <Route path="/login" element={<ProtectedRoute> 
@@ -55,5 +48,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;
