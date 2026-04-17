@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/Images/bg-5.png";
 import { API_INSTANCE } from "../config/axios";
 import { ENDPOINTS } from "../config/endpoin.config";
+import { setAuth } from "../utils/localStorage";
 import { toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
@@ -30,12 +31,12 @@ const Login = () => {
       const response = await API_INSTANCE.post(ENDPOINTS.LOGIN, { email, password });
 
       if (response.status === 200) {
-        localStorage.setItem("token", response?.data?.token);
-        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        const { token, user } = response.data;
+        setAuth(token, user);
+        setUserLog(true);
+        setUser(user);
         toast.success("Login successfully!", { autoClose: 2000 });
         navigate("/");
-        setUserLog(!!response?.data?.token);
-        setUser(response?.data?.user);
       } else {
         toast.error("Login failed. Please try again.", { autoClose: 2000 });
         setUserLog(false);

@@ -30,15 +30,13 @@ const App = () => {
             <Route path="/product" element={<Product />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="product/:id" element={<Cartdetails />}></Route>
-            <Route path="/login" element={<ProtectedRoute> 
-              <Login/>
-            </ProtectedRoute>}></Route>
-            <Route path="/signup" element={<ProtectedRoute> 
-              <Signup/>
-            </ProtectedRoute>}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
             
             <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/checkout" element={<Checkout />}></Route>
+            <Route path="/checkout" element={<ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>}></Route>
             <Route path="/payment-success" element={<PaymentSuccess />}></Route>
             <Route path="/payment-failed" element={<PaymentFailed />}></Route>
           </Routes>

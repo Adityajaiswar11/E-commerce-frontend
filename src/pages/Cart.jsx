@@ -66,10 +66,18 @@ const Cart = () => {
   };
 
   const handleOrder = () => {
+    if (!userLog) {
+      navigate("/login");
+      return;
+    }
     startPayment(+totalItemPrice);
   };
 
   const handleUpiOrder = () => {
+    if (!userLog) {
+      navigate("/login");
+      return;
+    }
     startUpiPayment(+totalItemPrice);
   };
 
@@ -156,7 +164,7 @@ const Cart = () => {
                 <div className="space-y-4 text-sm mb-6">
                   <div className="flex justify-between text-gray-300">
                     <span>Subtotal</span>
-                    <span>₹{totalItemPrice}</span>
+                    <span>₹{totalItemPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-gray-300">
                     <span>Shipping</span>
@@ -168,7 +176,7 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between text-white text-lg font-bold pt-2">
                     <span>Total</span>
-                    <span>₹{totalItemPrice}</span>
+                    <span>₹{totalItemPrice.toFixed(2)}</span>
                   </div>
                 </div>
 

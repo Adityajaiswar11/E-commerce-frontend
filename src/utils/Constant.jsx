@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { getUser, isLoggedIn } from "./localStorage";
 export const Context = createContext();
 
 export const AppContext = (props) => {
@@ -18,8 +19,8 @@ export const AppContext = (props) => {
   const [cart, setCart] = useState(getDataFromLocalStorage());
   const [product, setProduct] = useState([]);
   const [search, setSearch] = useState("");
-  const [userLog, setUserLog] = useState(false);
-  const [user, setUser] = useState({});
+  const [userLog, setUserLog] = useState(isLoggedIn);
+  const [user, setUser] = useState(getUser);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -30,7 +31,6 @@ export const AppContext = (props) => {
         console.log(err);
       }
     };
-
     getProduct();
   }, []);
 

@@ -8,6 +8,8 @@ import { FaShoppingCart, FaUser, FaUserCircle } from "react-icons/fa";
 import { RxCross1 } from "react-icons/rx";
 import MobileViewNavbar from "./MobileViewNavbar";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
+import { clearAuth } from "../utils/localStorage";
 
 const Navbar = () => {
   const { cart, user, userLog, setUser, setUserLog } = useContext(Context);
@@ -16,8 +18,10 @@ const Navbar = () => {
   const [modal, setModal] = useState(false);
 
   const userhandle = () => {
-    setUser("");
+    clearAuth();
+    setUser(null);
     setUserLog(false);
+    toast.success("Logout successfully!", { autoClose: 2000 });
   };
 
   return (
