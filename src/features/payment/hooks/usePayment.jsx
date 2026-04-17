@@ -3,6 +3,7 @@ import { createOrder, verifyPayment, createUpiIntent, getPaymentStatus } from ".
 import { loadRazorpay } from "../../../utils/razorpay";
 import { toast } from "react-toastify";
 import { useIsMobile } from "../../../hooks/isMobile";
+import { clearCart } from "../../../utils/localStorage";
 
 export const usePayment = () => {
   const navigate = useNavigate();
@@ -161,10 +162,11 @@ export const usePayment = () => {
     try {
       const data = await verifyPayment(paymentData);
       if (data.success) {
-        toast.success("Payment verified successfully");
+        toast.success("Payment done!");
         navigate(`/payment-success?payment_id=${paymentData.razorpay_payment_id}`);
+        clearCart();
       } else {
-        toast.error(data.message || "Verification failed");
+        toast.error(data.message || "Payment failed");
         navigate(`/payment-failed?payment_id=${paymentData.razorpay_payment_id}`);
       }
     } catch (err) {
