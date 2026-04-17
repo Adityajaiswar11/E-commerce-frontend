@@ -34,7 +34,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         toast.success("Login successfully!", { autoClose: 2000 });
         navigate("/");
-        setUserLog(true);
+        setUserLog(!!response?.data?.token);
         setUser(response?.data?.user);
       } else {
         toast.error("Login failed. Please try again.", { autoClose: 2000 });
