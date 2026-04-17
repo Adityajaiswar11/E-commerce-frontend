@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/Images/bg-5.png";
-import axios from "axios";
+import { API_INSTANCE } from "../config/axios";
+import { ENDPOINTS } from "../config/endpoin.config";
 import { toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Constant";
 
 const Login = () => {
-  const apiURl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { setUserLog, setUser } = useContext(Context);
   const [loader, setLoader] = useState(false);
@@ -27,7 +27,7 @@ const Login = () => {
 
     try {
       setLoader(true);
-      const response = await axios.post(`${apiURl}/login`, { email, password });
+      const response = await API_INSTANCE.post(ENDPOINTS.LOGIN, { email, password });
 
       if (response.status === 200) {
         toast.success("Login successfully!", { autoClose: 2000 });

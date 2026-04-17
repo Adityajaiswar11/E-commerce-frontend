@@ -2,7 +2,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { API_INSTANCE } from "../config/axios";
+import { ENDPOINTS } from "../config/endpoin.config";
 import { TypeAnimation } from "react-type-animation";
 import { Context } from "../utils/Constant";
 
@@ -21,12 +22,11 @@ const Signup = () => {
   
     try {
       setLoader(true);
-      const response = await axios.post(`${apiURl}/signup`, {
+      const response = await API_INSTANCE.post(ENDPOINTS.SIGNUP, {
         name,
         email,
         password,
       });
-  
       setName("");
       setEmail("");
       setPassword("");
