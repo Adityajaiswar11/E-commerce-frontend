@@ -5,7 +5,7 @@ export const useIsMobile = () => {
 
   useEffect(() => {
     const checkMobile = () => {
-      // Also check userAgent for true mobile devices (tablet/phone)
+      //mobile devices (tablet/phone)
       const byWidth = window.innerWidth < 768;
       const byAgent = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
