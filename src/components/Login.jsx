@@ -30,10 +30,12 @@ const Login = () => {
       const response = await API_INSTANCE.post(ENDPOINTS.LOGIN, { email, password });
 
       if (response.status === 200) {
+        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("user", JSON.stringify(response?.data?.user));
         toast.success("Login successfully!", { autoClose: 2000 });
         navigate("/");
         setUserLog(true);
-        setUser(response.data);
+        setUser(response?.data?.user);
       } else {
         toast.error("Login failed. Please try again.", { autoClose: 2000 });
         setUserLog(false);

@@ -53,7 +53,7 @@ export const usePayment = () => {
       paymentObject.open();
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
 
