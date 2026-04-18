@@ -3,13 +3,9 @@ import { ENDPOINTS } from "../../../config/endpoin.config";
 
 // ─── Standard Checkout ────────────────────────────────────────────────────────
 
-export const createOrder = async (amount) => {
-  try {
-    const response = await API_INSTANCE.post(ENDPOINTS.CREATE_ORDER, { amount });
-    return response.data;
-  } catch (error) {
-    console.error("createOrder error:", error);
-  }
+export const createOrder = (amount) => {
+  const response = API_INSTANCE.post(ENDPOINTS.CREATE_ORDER, { amount });
+  return response;
 };
 
 export const verifyPayment = async (paymentData) => {

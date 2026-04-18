@@ -15,32 +15,56 @@ import ProtectedRoute from "./protected/ProtectedRoute";
 import Checkout from "./pages/Checkout";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
+import Dashboard from "./pages/Dashboard";
+import Overview from "./pages/Overview";
+import Orders from "./pages/Orders";
+import { ViewProductList } from "./features/products/components/ViewProductList";
+import { LayoutProvider, useLayout } from "./context/LayoutContext";
+import { PaymentProvider } from "./features/payment/context/PaymentContext";
 
+const LayoutWrapper = ({ children }) => {
+  const { showHeader, showFooter } = useLayout();
+  return (
+    <>
+      {showHeader && <Navbar />}
+      {children}
+      {showFooter && <Footer />}
+    </>
+  );
+};
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <AppContext>
-          <ToastContainer />
-          <Navbar />
-
-          <Routes>
-            <Route path="/" exact element={<Home />}></Route>
-            <Route path="/product" element={<Product />}></Route>
-            <Route path="/contact" element={<Contact />}></Route>
-            <Route path="product/:id" element={<Cartdetails />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
-            
-            <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/checkout" element={<ProtectedRoute>
-              <Checkout />
-            </ProtectedRoute>}></Route>
-            <Route path="/payment-success" element={<PaymentSuccess />}></Route>
-            <Route path="/payment-failed" element={<PaymentFailed />}></Route>
-          </Routes>
-          <Footer />
+          <LayoutProvider>
+            <PaymentProvider>
+              <ToastContainer />
+              <LayoutWrapper>
+                <Routes>
+                  <Route path="/" exact element={<Home />}></Route>
+                  <Route path="/product" element={<Product />}></Route>
+                  <Route path="/contact" element={<Contact />}></Route>
+                  <Route path="product/:id" element={<Cartdetails />}></Route>
+                  <Route path="/login" element={<Login />}></Route>
+                  <Route path="/signup" element={<Signup />}></Route>
+  
+                  <Route path="/cart" element={<Cart />}></Route>
+                  <Route path="/checkout" element={<ProtectedRoute>
+                    <Checkout />
+                  </ProtectedRoute>}></Route>
+                  <Route path="/payment-success" element={<PaymentSuccess />}></Route>
+                  <Route path="/payment-failed" element={<PaymentFailed />}></Route>
+                  <Route path="/dashboard" element={<Dashboard />}>
+                    <Route index element={<Overview />} />
+                    <Route path="products" element={<ViewProductList />} />
+                    <Route path="orders" element={<Orders />} />
+                  </Route>
+                </Routes>
+              </LayoutWrapper>
+            </PaymentProvider>
+          </LayoutProvider>
         </AppContext>
       </BrowserRouter>
     </>

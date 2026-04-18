@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaTrash, FaMinus, FaPlus } from "react-icons/fa";
 import { usePayment } from "../features/payment/hooks/usePayment";
+import Loader from "../components/Loader";
 
 const Cart = () => {
   let totalItemPrice = 0;
@@ -14,7 +15,7 @@ const Cart = () => {
   const [filterdata, setFilterData] = useState([]);
 
   const navigate = useNavigate();
-  const { startPayment, startUpiPayment, isMobile } = usePayment();
+  const { startPayment, startUpiPayment, isMobile, isLoading } = usePayment();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -70,7 +71,7 @@ const Cart = () => {
       navigate("/login");
       return;
     }
-    startPayment(+totalItemPrice);
+    startPayment(totalItemPrice);
   };
 
   const handleUpiOrder = () => {
@@ -78,10 +79,12 @@ const Cart = () => {
       navigate("/login");
       return;
     }
-    startUpiPayment(+totalItemPrice);
+    startUpiPayment(totalItemPrice);
   };
 
   return (
+    <>
+      {isLoading && <Loader />}
     <div className="min-h-screen bg-dark-bg pt-24 pb-12 px-4 md:px-8 text-white relative">
       {filterdata.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-20">
@@ -184,7 +187,7 @@ const Cart = () => {
                   onClick={handleOrder}
                   className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3.5 rounded-xl shadow-glow transition-colors"
                 >
-                  Proceed to Checkout
+                    {isLoading ? "Processing..." : "Proceed to Checkout"}
                 </button>
 
                 {/* UPI Intent button — only shown on mobile */}
@@ -234,7 +237,9 @@ const Cart = () => {
       )}
 
     </div>
+    </>
   );
 };
+
 
 export default Cart;
