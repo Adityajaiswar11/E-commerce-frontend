@@ -183,7 +183,7 @@ export const PaymentProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const res = await verifyPayment(response);
-      if (res.data.success) {
+      if (res.success === true) {
         navigate(`/payment-success?order_id=${res.data.payment_order_id}&amount=${res.data.amount}&currency=${res.data.currency}`);
         clearCart();
         setCart({});
