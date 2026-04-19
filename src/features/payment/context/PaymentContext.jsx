@@ -46,15 +46,23 @@ export const PaymentProvider = ({ children }) => {
         order_id: order.payment_order_id,
 
         handler: (response) => {
-          handlePaymentSuccess({...response});
+          const paymentData = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
+          handlePaymentSuccess(paymentData);
         },
       };
 
       const paymentObject = new window.Razorpay(options);
 
       paymentObject.on("payment.failed", function (response) {
-        console.log("payment failed", response);
-        redirectTo(order?.payment_order_id, order?.amount, order?.currency, false);
+        const paymentData = {
+          razorpay_order_id: response.error.metadata.order_id,
+          razorpay_payment_id: response.error.metadata.payment_id,
+        };
+        handlePaymentSuccess(paymentData);
       });
 
       // Once the modal opens, we can technically stop the loading spinner
@@ -175,17 +183,13 @@ export const PaymentProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const res = await verifyPayment(response);
-      if (res.success) {
-        toast.success(res.message);
-        navigate(`/payment-success?order_id=${res.paymentData.payment_order_id}&amount=${res.paymentData.amount}&currency=${res.paymentData.currency}`);
+      if (res.data.success) {
+        navigate(`/payment-success?order_id=${res.data.payment_order_id}&amount=${res.data.amount}&currency=${res.data.currency}`);
         clearCart();
         setCart({});
         setOrderData(null);
-
       } else {
-        toast.error(res.message);
-        navigate(`/payment-failed?order_id=${res.paymentData.payment_order_id}&amount=${res.paymentData.amount}&currency=${res.paymentData.currency}`);
-        setOrderData(null);
+        navigate(`/payment-failed?order_id=${res.data.payment_order_id}&amount=${res.data.amount}&currency=${res.data.currency}`);
       }
     } catch (err) {
       console.error(err);
