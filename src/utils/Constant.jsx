@@ -17,22 +17,9 @@ export const AppContext = (props) => {
 
   // State for the context
   const [cart, setCart] = useState(getDataFromLocalStorage());
-  const [product, setProduct] = useState([]);
-  const [search, setSearch] = useState("");
   const [userLog, setUserLog] = useState(isLoggedIn);
   const [user, setUser] = useState(getUser);
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await axios.get("https://dummyjson.com/products?limit=100");
-        setProduct(res.data.products);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProduct();
-  }, []);
 
   //storing cart items in local storage
   useEffect(() => {
@@ -46,9 +33,6 @@ export const AppContext = (props) => {
       value={{
         cart,
         setCart,
-        product,
-        search,
-        setSearch,
         userLog,
         setUserLog,
         user,

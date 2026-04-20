@@ -7,4 +7,7 @@ export const ENDPOINTS = {
   VERIFY_PAYMENT: "payment/verify",
   UPI_INTENT: "payment/upi-intent",
   GET_PAYMENT_STATUS: "/payment/status/:paymentId",
+  ADD_TO_CART: "cart/create",
+  UPDATE_CART: "cart/update",
+  DELETE_CART: "cart/delete",
 };

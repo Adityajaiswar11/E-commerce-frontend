@@ -1,40 +1,25 @@
 /* eslint-disable react/prop-types */
 
 import { useState, useContext } from "react";
-import ReactStars from "react-rating-stars-component";
-import { Link } from "react-router-dom";
-import { Context } from "../utils/Constant";
-import { toast } from "react-toastify";
+// import ReactStars from "react-rating-stars-component";
+import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaCheck } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
+import { useCart } from "../features/cart/useCart";
 
 const ProductCard = ({ data }) => {
-  const [isAdded, setIsAdded] = useState(false);
-  const { cart, setCart } = useContext(Context);
+  const navigate = useNavigate();
+  const { addToCart, loading: cartLoading, isAdded } = useCart();
 
-  const addtoCart = (e, data) => {
-    e.preventDefault();
-    const _id = data.id;
-    const addCart = { ...cart };
+  const createAddTocart = (e, data) => {
 
-    if (!addCart.item) addCart.item = {};
-    if (addCart.item[_id]) addCart.item[_id] += 1;
-    else addCart.item[_id] = 1;
-
-    if (!addCart.totalitem) addCart.totalitem = 0;
-    addCart.totalitem += 1;
-
-    setCart(addCart);
-    setIsAdded(true);
-    if (_id) {
-      toast.success("Item added successfully", { autoClose: 1000, position: "bottom-right" });
-    } else {
-      toast.error("something went wrong", { autoClose: 1000 });
-    }
-  };
+    e.stopPropagation();
+    console.log("c")
+    addToCart(data);
+  }
 
   return (
-    <Link to={`/product/${data?.id}`} className="block w-full h-full perspective-1000">
+    <div onClick={() => navigate(`/product/${data?.id}`)} className="block w-full h-full perspective-1000">
       <div className="h-full bg-dark-card border border-dark-border rounded-2xl overflow-hidden hover:-translate-y-2 group transition-all duration-500 flex flex-col relative hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] hover:border-primary/50">
         
         {/* Subtle Ambient Glow inside Card */}
@@ -43,16 +28,16 @@ const ProductCard = ({ data }) => {
         {/* Image Container */}
         <div className="relative w-full h-64 bg-[#0a0a0a] overflow-hidden flex items-center justify-center p-6 border-b border-dark-border/50">
           <img
-            src={data?.thumbnail}
+            src={data?.image_url}
             alt={data?.title}
             className="w-full h-full object-contain rounded-xl group-hover:scale-110 transition-transform duration-700 ease-out z-10 relative drop-shadow-2xl"
           />
           {/* Discount Badge */}
-          {data?.discountPercentage > 0 && (
+          {/* {data?.discountPercentage > 0 && (
             <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-20">
               -{Math.round(data?.discountPercentage)}%
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Content */}
@@ -67,10 +52,10 @@ const ProductCard = ({ data }) => {
           </div>
           
           <p className="text-sm text-gray-400 line-clamp-2 mb-4 flex-grow font-light leading-relaxed">
-            {data?.description}
+            {data?.desc}
           </p>
 
-          <div className="flex items-center mb-6 bg-dark-bg/50 inline-flex w-fit px-3 py-1 rounded-full border border-dark-border/50">
+          {/* <div className="flex items-center mb-6 bg-dark-bg/50 inline-flex w-fit px-3 py-1 rounded-full border border-dark-border/50">
             <ReactStars
               count={5}
               value={data?.rating}
@@ -80,13 +65,13 @@ const ProductCard = ({ data }) => {
               activeColor="#f59e0b"
             />
             <span className="text-xs text-gray-400 font-medium ml-2">{data?.rating} / 5</span>
-          </div>
+          </div> */}
 
           {/* Footer: Add to Cart */}
           <div className="mt-auto">
             <button
               disabled={isAdded}
-              onClick={(e) => addtoCart(e, data)}
+              onClick={(e) => createAddTocart(e, data)}
               className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
                 isAdded 
                   ? "bg-green-500/10 text-green-500 border border-green-500/50" 
@@ -99,7 +84,7 @@ const ProductCard = ({ data }) => {
                 </>
               ) : (
                 <>
-                  <FaShoppingCart className="text-base group-hover:-rotate-12 transition-transform duration-300" /> Quick Add
+                    <FaShoppingCart className="text-base group-hover:-rotate-12 transition-transform duration-300" /> {cartLoading ? "Adding..." : "Quick Add"}
                 </>
               )}
             </button>
@@ -107,7 +92,7 @@ const ProductCard = ({ data }) => {
         </div>
 
       </div>
-    </Link>
+    </div>
   );
 };
 

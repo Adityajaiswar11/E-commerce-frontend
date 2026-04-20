@@ -4,13 +4,18 @@ import Loader from "./Loader";
 import ProductCard from "../pages/ProductCard";
 import { motion } from "framer-motion";
 import { Searchbar } from "./SearchBar";
-import { Context } from "../utils/Constant";
+import { useProducts } from "../features/products/hooks/useProducts";
 
 const Products = () => {
-  const [data, setData] = useState([]);
-  const [datashow, setDatashow] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loader, setLoader] = useState(false);
+  const { fetchProducts, products, loading, pagination } = useProducts();
+  const [query, setQuery] = useState({
+    search: "",
+    sort: "",
+    status: "",
+    title: "",
+    page: pagination.current_page,
+    limit: 4,
+  });
 
   const container = {
     hidden: { opacity: 0 },
@@ -27,45 +32,14 @@ const Products = () => {
     visible: { y: 0, opacity: 1 },
   };
 
-  const { search } = useContext(Context);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoader(true);
-        const response = await axios.get(
-          "https://dummyjson.com/products?limit=100"
-        );
-        setData(response?.data?.products);
-        setLoader(false);
-      } catch (error) {
-        console.log(error);
-        setLoader(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const filtered = data.filter((item) => {
-      if (!search) return true;
-      return (
-        item.title.toLowerCase().includes(search.toLowerCase()) ||
-        item.category.toLowerCase().includes(search.toLowerCase())
-      );
-    });
-    setDatashow(filtered);
-    setPage(1);
-  }, [search, data]);
+    fetchProducts(query.search, query.sort, query.status, query.title, query.page, query.limit);
+  }, [query]);
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(datashow.length / 8)) {
-      setPage(newPage);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    setQuery((prev) => ({ ...prev, page: newPage }));
   };
-
-  const totalPages = Math.ceil(datashow.length / 8);
 
   return (
     <div className="min-h-screen bg-dark-bg pt-20 pb-20 px-4 md:px-8">
@@ -79,16 +53,16 @@ const Products = () => {
         </div>
 
         <div className="mb-10">
-          <Searchbar />
+          <Searchbar query={query} setQuery={setQuery} />
         </div>
 
-        {loader ? (
+        {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader />
           </div>
         ) : (
           <>
-            {datashow.length > 0 ? (
+              {products.length > 0 ? (
               <>
                   <motion.div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
@@ -96,54 +70,43 @@ const Products = () => {
                   initial="hidden"
                   animate="visible"
                 >
-                  {datashow
-                    .slice((page - 1) * 8, page * 8)
-                      .map((product) => (
-                        <motion.div key={product.id} variants={item}>
-                          <ProductCard data={product} />
-                        </motion.div>
+                    {products?.map((product) => (
+                      <motion.div key={product.id} variants={item}>
+                        <ProductCard data={product} />
+                      </motion.div>
                     ))}
                   </motion.div>
 
                   {/* Pagination */}
-                  {totalPages > 1 && (
+                  {products.length > 1 && (
                     <div className="flex justify-center items-center mt-16 gap-2 flex-wrap">
                       <button
-                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${page === 1 ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${query.page === 1 ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
                           }`}
-                        onClick={() => handlePageChange(page - 1)}
-                        disabled={page === 1}
+                        onClick={() => handlePageChange(query.page - 1)}
+                        disabled={query.page === 1}
                       >
                         Prev
                       </button>
-
-                      {[...Array(totalPages)].map((_, i) => {
-                        const pageNum = i + 1;
-                        // Simple logic to show a few pages around current page
-                        if (pageNum === 1 || pageNum === totalPages || (pageNum >= page - 1 && pageNum <= page + 1)) {
-                          return (
-                            <button
-                              key={i}
-                              className={`w-10 h-10 flexItems-center justify-center rounded-lg font-semibold transition-all ${pageNum === page
-                                ? "bg-primary text-white shadow-glow border-none"
-                                : "bg-dark-card border border-dark-border text-gray-400 hover:text-white hover:border-gray-600"
-                                }`}
-                              onClick={() => handlePageChange(pageNum)}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        } else if (pageNum === page - 2 || pageNum === page + 2) {
-                          return <span key={i} className="text-gray-600">...</span>;
-                        }
-                        return null;
-                      })}
-
+                      {
+                        Array.from({ length: pagination.total_pages }, (_, i) => (
+                          <button
+                            key={i}
+                            className={`w-10 h-10 flexItems-center justify-center rounded-lg font-semibold transition-all ${query.page === i + 1
+                              ? "bg-primary text-white shadow-glow border-none"
+                              : "bg-dark-card border border-dark-border text-gray-400 hover:text-white hover:border-gray-600"
+                              }`}
+                            onClick={() => handlePageChange(i + 1)}
+                          >
+                            {i + 1}
+                          </button>
+                        ))
+                      }
                       <button
-                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${page === totalPages ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
+                        className={`px-4 py-2 rounded-lg font-semibold transition-all border border-dark-border ${query.page === products.length ? "opacity-50 cursor-not-allowed text-gray-500 bg-dark-card" : "text-white bg-dark-card hover:bg-dark-hover"
                           }`}
-                        onClick={() => handlePageChange(page + 1)}
-                        disabled={page === totalPages}
+                        onClick={() => handlePageChange(query.page + 1)}
+                        disabled={query.page === products.length}
                       >
                         Next
                       </button>
